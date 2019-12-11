@@ -73,7 +73,7 @@
     "jspdf": "^1.5.3",
     "libphonenumber-js": "^1.7.18",
     "localStorage": "^1.0.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "ng-chartist": "^4.1.0",
     "ng-connection-service": "^1.0.4",
     "ng-zorro-antd": "^7.5.1",
