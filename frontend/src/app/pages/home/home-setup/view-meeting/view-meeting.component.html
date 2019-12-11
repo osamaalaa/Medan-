@@ -1,0 +1,200 @@
+<nz-card class="card">
+  <h4><b>{{"MEETING" | translate }}</b>: {{resDescription}}</h4>
+  <nz-tabset>
+    <!-- ................MEMBER........................... -->
+    <nz-tab *ngIf="isMember" nzTitle="{{'MEMBER' | translate }}">
+      <nz-tabset [nzType]="'card'">
+        <nz-tab nzTitle="{{'AGENDA' | translate }}">
+          <div class="card-body">
+            <app-agenda></app-agenda>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'PRESENTATION' | translate }}">
+          <div class="card-body">
+            <app-presentation></app-presentation>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'MINUTES_OF_MEETING' | translate }}">
+          <div class="card-body">
+            <app-minutes-of-meeting></app-minutes-of-meeting>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'RESOLUTIONS' | translate }}" (nzClick)="refreshResolution()">
+          <app-resolutions></app-resolutions>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'MEMBERS' | translate }}">
+          <div class="card-body">
+            <app-members></app-members>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+    </nz-tab>
+    <!-- ................MANAGER............................ -->
+    <nz-tab *ngIf="isManager" nzTitle="{{'MANAGER' | translate }}">
+      <nz-tabset [nzType]="'card'">
+        <nz-tab nzTitle="{{'AGENDA' | translate }}">
+          <div class="card-body">
+            <div class="row d-flex">
+              <div class="col-md-12 embed-pdf">
+                <app-agenda></app-agenda>
+              </div>
+            </div>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'LIVE_VIEW' | translate }}" (nzClick)="navigateToScreenSharing()">
+          <div class="card-body">
+            <app-live-view></app-live-view>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'PRESENTATION' | translate }}">
+          <div class="card-body">
+            <app-presentation></app-presentation>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'MINUTES_OF_MEETING' | translate }}">
+          <div class="card-body">
+            <app-minutes-of-meeting></app-minutes-of-meeting>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'RESOLUTIONS' | translate }}" (nzClick)="refreshResolution()">
+          <app-resolutions></app-resolutions>
+        </nz-tab>
+
+        <nz-tab nzTitle="{{'MEMBERS' | translate }}">
+          <div class="card-body">
+            <app-members [enableAttendanceAction]="isManager"></app-members>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+    </nz-tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ................BOARD VIEWER...................... -->
+    <nz-tab *ngIf="false" nzTitle="{{'BOARD_VIEWER' | translate }}">
+      <div class="card-body">
+        <div style="background: #ECECEC">
+          <nz-row [nzGutter]="16">
+            <nz-col [nzSpan]="6">
+              <nz-card style="height: 300px;">
+                <b>{{"SURVEYS" | translate }}</b>
+                <hr>
+                <nz-progress [nzPercent]="50"></nz-progress>
+                <nz-progress [nzPercent]="90" nzStatus="success "></nz-progress>
+                <nz-progress [nzPercent]='10' nzStatus='exception '></nz-progress>
+                <hr>
+                <div class="Percent1">
+                  <b>{{"SURVEYS" | translate }}</b>
+                  <hr>
+
+                </div>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="10">
+              <nz-card style="height: 300px;">
+                <b>{{"STRATEGIC_PERFORMANCE" | translate }}</b>
+                <hr>
+                <b>{{"STRATEGIC:" | translate }}<small>{{"ACHIEVE_CMS_SALES_OF_SR_10" | translate }}</small></b>
+                <hr>
+                <nz-col [nzSpan]="12">
+                  <google-chart width="250" [title]="chart.title" [type]="chart.type" [data]="chart.data"
+                    [columnNames]="chart.columnNames" [options]="chart.options">
+                  </google-chart>
+                </nz-col>
+                <nz-col [nzSpan]="12">
+                  <small class="float-right">{{"ACHIEVEMENT_RATE" | translate }}</small>
+                  <br>
+                  <nz-progress class="float-right" [nzPercent]="87" nzType="circle" [nzWidth]="50"></nz-progress>
+                  <br><br><br><br><br><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <small>{{"BENIFIT_PROGRESS" | translate }}</small>
+                  <nz-progress [nzPercent]="50"></nz-progress>
+                </nz-col>
+                <!-- <nz-progress class="float-right" [nzPercent]="87" nzType="circle" [nzWidth]="50"></nz-progress>
+                <nz-progress [nzPercent]="50"></nz-progress> -->
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="8">
+              <nz-card style="height: 300px;">
+                <b>{{"STRATEGIC_OBJECTIVE" | translate }}</b>
+                <hr>
+
+              </nz-card>
+            </nz-col>
+          </nz-row>
+          <nz-row [nzGutter]="16">
+            <nz-col [nzSpan]="6">
+              <nz-card style="height: 300px;">
+                <b>{{"MEETING_AGENDA" | translate }}</b>
+                <hr>
+                <div class="Percent">
+
+                </div>
+                <!-- <div class="Percent1">
+                  <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+                  <nz-progress [nzPercent]="50" nzSize="small" nzStatus="active"></nz-progress>
+                  <nz-progress [nzPercent]="70" nzSize="small" nzStatus="exception"></nz-progress>
+                  <nz-progress [nzPercent]="100" nzSize="small"></nz-progress>
+                  <nz-progress [nzPercent]="50" nzSize="small" [nzShowInfo]="false"></nz-progress>
+                </div> -->
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="10">
+              <nz-card style="height: 300px;">
+                <b>{{"DECISIONS" | translate }}</b>
+                <hr>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="8">
+              <nz-card style="height: 300px;">
+                <b>{{"TERM1_STUDIES" | translate }}</b>
+                <hr>
+              </nz-card>
+            </nz-col>
+          </nz-row>
+
+        </div>
+      </div>
+    </nz-tab>
+    <!-- .................................................. -->
+  </nz-tabset>
+
+</nz-card>
+
+
+

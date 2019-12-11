@@ -1,0 +1,22 @@
+[nz-carousel-content] {
+	color: #6e9678;
+	overflow: hidden;
+   }
+   ::ng-deep {
+	   .ant-carousel {
+		   .slick-dots {
+			   li.slick-active {
+				   button {
+					   padding: 10px 15px;
+					   background-color: #1F473A;
+				   }
+			   }
+			   li {
+				   button {
+					   padding: 10px 15px;
+					   background-color: #1F473A;
+				   }
+			   }
+		   }
+	   }
+   }

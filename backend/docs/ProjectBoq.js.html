@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Medan Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+
+
+
+                    <h1 class="navbar-item">Medan Documentation</h1>
+
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+
+        </div>
+    </div>
+
+    </nav>
+    </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>ProjectBoq.js</h1>
+                    </header>
+
+
+
+
+
+
+                    <section>
+                        <article>
+                            <pre class="prettyprint source linenums"><code>require('module-alias/register');
+                                require("module-alias/register");
+                                let express = require("express");
+                                let router = express.Router();
+                                let statements = require("./ProjectBoqSQL");
+                                let servicePool = require('@lib/servicePool');
+                                let bodyconverter = require("@conv/bodyConverter");
+                                let checkdataexists = require("@vals/dataexists");
+                                
+                                <div id="getAllProjectBoq">
+                                router.get('/getAllProjectBoq', (req, res) =>{
+                                  servicePool(req, res,
+                                              statements.getAllProjectBoq.statement,
+                                              []
+                                            );
+                                });
+                            </div>
+                            <div id="getBoqLocations">
+                                router.get('/getBoqLocations', (req, res) =>{
+                                  servicePool(req, res,
+                                              statements.getBoqLocations.statement,
+                                              []
+                                            );
+                                });
+                            </div>
+                                <div id="getOneProjectBoqByProjectID">
+                                router.get('/Scope/:PROJECT_ID', (req, res) =>{
+                                  servicePool(req,
+                                          res,
+                                          statements.getOneProjectBoqByProjectID.statement,
+                                        {'PROJECT_ID' :req.params.PROJECT_ID}
+                                      );
+                                });
+                            </div>
+                                router.get('/getProjectMilestoneByProId/:PROJECT_ID', (req, res) =>{
+                                  servicePool(req,
+                                          res,
+                                          statements.getProjectMilestoneByProId.statement,
+                                        {'PROJECT_ID' :req.params.PROJECT_ID}
+                                      );
+                                });
+                                <div id="getOneProjectBoqByID">
+                                router.get('/getOneProjectBoqByID/:BOQ_ID', (req, res) =>{
+                                  servicePool(req,
+                                          res,
+                                          statements.getOneProjectBoqByID.statement,
+                                        {'BOQ_ID' :req.params.BOQ_ID}
+                                      );
+                                });
+                            </div>
+                                router.post('/insertProjectBoq', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.insertProjectBoq.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.insertProjectBoq.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                                
+                                router.get('/getBoqCalssification', (req, res) =>{
+                                  servicePool(req, res,
+                                              statements.getBoqCalssification.statement,
+                                              []
+                                            );
+                                });
+                                
+                                router.get('/getBoqType', (req, res) =>{
+                                  servicePool(req, res,
+                                              statements.getBoqType.statement,
+                                              []
+                                            );
+                                });
+                                
+                                router.get('/getUnitsOfMeasure', (req, res) =>{
+                                  servicePool(req, res,
+                                              statements.getUnitsOfMeasure.statement,
+                                              []
+                                            );
+                                });
+                                
+                                router.post('/deleteProjectBoq', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.deleteProjectBoq.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.deleteProjectBoq.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                                
+                                router.post('/updateProjectBoq', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.updateProjectBoq.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.updateProjectBoq.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                                
+                                
+                                router.get('/boqChild/:BOQ_PARENT', (req, res) =>{
+                                  servicePool(req,
+                                          res,
+                                          statements.boqChild.statement,
+                                        {'BOQ_PARENT' :req.params.BOQ_PARENT}
+                                      );
+                                });
+                                
+                                
+                                module.exports = router ;
+                                
+
+
+                </code></pre>
+                        </article>
+                    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>Documentation generated by back-end development team</p>
+        </div>
+    </footer>
+
+    <script>
+        prettyPrint();
+    </script>
+    <script src="scripts/app.min.js"></script>
+    <script src="scripts/linenumber.js">
+    </script>
+</body>
+
+</html>

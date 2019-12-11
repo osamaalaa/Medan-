@@ -1,0 +1,129 @@
+<div class="card">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="activitesForOperationsForm" (ngSubmit)="submitForm()" role="form">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-10">
+              <nz-form-control>
+                <h4><b>{{"SEARCH_CRITERIA" | translate }}</b></h4>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" class="mr-2">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'SHIFT' | translate }}" formControlName="P_TEMPLATE_ID">
+                  <nz-option *ngFor="let medan of templateList"
+                    [nzValue]="{id: medan.TEMPLATE_ID, enName: medan.TEMPLATE_NAME_EN, arName: medan.TEMPLATE_NAME_AR}"
+                    [nzLabel]="lang == 'ar' ? medan.TEMPLATE_NAME_AR : medan.TEMPLATE_NAME_EN">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-4">
+
+              <nz-form-control>
+
+                <nz-tree-select [nzNodes]="locationList" nzShowSearch style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'LOCATION' | translate }}" formControlName="p_location_id"
+                  [nzDropdownMatchSelectWidth]="true"
+                  [nzDropdownStyle]="{ 'max-height': '300px','max-width': '360px' }">
+                </nz-tree-select>
+
+              </nz-form-control>
+
+            </div>
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'OPERATION TYPE' | translate }}" formControlName="p_service_op_type">
+                  <nz-option *ngFor="let medan of operationData"
+                    [nzValue]="{id: medan.OPERATION_TYPE, enName: medan.MAINTAIN_TYPE_EN, arName: medan.MAINTAIN_TYPE_AR}"
+                    [nzLabel]="lang == 'ar' ? medan.MAINTAIN_TYPE_AR : medan.MAINTAIN_TYPE_EN">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="card-body">
+    <div class="input-group" style="padding-bottom: 11px;">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+          [(ngModel)]="searchText">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+    <div class="float-right">
+      <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon
+          nzType="download"></i>
+
+      </button>
+    </div>
+    <br>
+    <br>
+    <div>
+      <nz-table nzBordered #activitiesForDataTable [nzData]="activitesForOperationsModelService.displayData"
+        class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+        <thead (nzSortChange)="sortData($event)" nzSingleSort>
+          <tr>
+            <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{"ASSET_NAME" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="RECURING_EN">{{"RECURING" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="JOB_ORDER_DESC">{{"WORK_ORDER_DESCRIPTION" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="activitiesForDataTable.data">
+            <tr>
+              <td class="text-center">{{data.ASSET_NAME }}</td>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.RECURING_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.RECURING_AR}}</td>
+              <td class="text-center">{{data.JOB_ORDER_DESC }}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<div #TABLE #table style="display:none">
+  <table>
+    <thead (nzSortChange)="sortData($event)" nzSingleSort>
+      <tr>
+        <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{"ASSET_NAME" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="RECURING_EN">{{"RECURING" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="JOB_ORDER_DESC">{{"WORK_ORDER_DESCRIPTION" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let data of activitesForOperationsModelService.displayData">
+        <td class="text-center">{{data.ASSET_NAME }}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.RECURING_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.RECURING_AR}}</td>
+        <td class="text-center">{{data.JOB_ORDER_DESC }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,136 @@
+<div class="card">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="workOrderReportForm" (ngSubmit)="submitForm()" role="form">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+
+            <div class="col-lg-2">
+              <nz-form-control>
+                <h4><b>{{"SEARCH_CRITERIA" | translate }}</b></h4>
+              </nz-form-control>
+            </div>
+
+            <div class="col-lg-3">
+
+              <nz-form-control>
+                <nz-date-picker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'START_DATE' | translate }}"
+                  formControlName="p_start_date">
+                </nz-date-picker>
+                <div *ngFor="let validation of validation_messages.p_start_date">
+                  <nz-form-explain class="red-color"
+                    *ngIf="p_start_date.hasError(validation.type) && (p_start_date.dirty || p_start_date.touched)">
+                    {{validation.message | translatecui}}
+                  </nz-form-explain>
+                </div>
+              </nz-form-control>
+
+            </div>
+
+            <div class="col-lg-3">
+
+              <nz-form-control>
+                <nz-date-picker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'END_DATE' | translate }}"
+                  formControlName="p_end_date">
+                </nz-date-picker>
+                <div *ngFor="let validation of validation_messages.p_end_date">
+                  <nz-form-explain class="red-color"
+                    *ngIf="p_end_date.hasError(validation.type) && (p_end_date.dirty || p_end_date.touched)">
+                    {{validation.message | translatecui}}
+                  </nz-form-explain>
+                </div>
+              </nz-form-control>
+
+            </div>
+            <div class="col-lg-2">
+            </div>
+
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" class="mr-2"
+                [disabled]="workOrderReportForm.invalid">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <hr>
+
+  <div class="card-body">
+
+    <div class="input-group" style="padding-bottom: 11px;">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+          [(ngModel)]="searchText">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+
+    </div>
+    <div class="float-right">
+      <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon
+          nzType="download"></i>
+      </button>
+    </div>
+    <br>
+    <br>
+    <div>
+      <nz-table [nzLoading]="isDataLoading" nzBordered #workOrderDataTable [nzData]="workOrderModelService.displayData"
+        class="utils__scrollTable" nzPageSize="5">
+        <thead (nzSortChange)="sortData($event)" nzSingleSort>
+          <tr>
+            <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{ "NAME" | translate }}</th>
+            <th class="text-center"  nzShowSort nzSortKey="RECURRING_EN">{{ "RECURRING" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="ACTION_TITLE_EN">{{ "ACTION_TITLE" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="OPER_TYPE_EN">{{ "OPERATION TYPE" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="workOrderDataTable.data">
+            <tr>
+              <td class="text-center">{{data.ASSET_NAME}}</td>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.RECURRING_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.RECURRING_AR}}</td>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.ACTION_TITLE_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.ACTION_TITLE_AR}}</td>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.OPER_TYPE_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.OPER_TYPE_AR}}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<div #TABLE #table style="display:none">
+  <table>
+    <thead (nzSortChange)="sortData($event)" nzSingleSort>
+      <tr>
+        <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{ "NAME" | translate }}</th>
+        <th class="text-center"  nzShowSort nzSortKey="RECURRING_EN">{{ "RECURRING" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="ACTION_TITLE_EN">{{ "ACTION_TITLE" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="OPER_TYPE_EN">{{ "OPERATION TYPE" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of workOrderModelService.displayData">
+        <td class="text-center">{{data.ASSET_NAME}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.RECURRING_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.RECURRING_AR}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.ACTION_TITLE_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.ACTION_TITLE_AR}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.OPER_TYPE_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.OPER_TYPE_AR}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

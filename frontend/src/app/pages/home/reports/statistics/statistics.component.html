@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="mb-4">
+      <b>{{ 'STATISTICS' | translate }}</b>
+
+    </h3>
+    <nz-carousel [nzEffect]="'fade'" class="single-item-rtl">
+      <div nz-carousel-content>
+        <div class="row">
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'LABOURS_CHART' | translate }}">
+                <app-labours-chart></app-labours-chart>
+              </nz-card>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'EQUIPMENT/TOOLS_CHART' | translate }}">
+                <app-tools-chart></app-tools-chart>
+              </nz-card>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'MATERIALS_CHART' | translate }}">
+                <app-issues-chart></app-issues-chart>
+              </nz-card>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'VIOLATIONS_CHART' | translate }}">
+                <app-incidents-chart></app-incidents-chart>
+              </nz-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-carousel-content>
+        <div class="row">
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'LABOURS_CHART' | translate }}">
+                <app-variance-labours></app-variance-labours>
+              </nz-card>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'EQUIPMENT/TOOLS_CHART' | translate }}">
+                <app-variance-tools></app-variance-tools>
+              </nz-card>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'MATERIALS_CHART' | translate }}">
+                <app-variance-issues></app-variance-issues>
+              </nz-card>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div nz-col [nzSpan]="'container'">
+              <nz-card nzTitle="{{ 'VIOLATIONS_CHART' | translate }}">
+                <app-variance-incidents></app-variance-incidents>
+              </nz-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nz-carousel>
+  </div>
+</div>

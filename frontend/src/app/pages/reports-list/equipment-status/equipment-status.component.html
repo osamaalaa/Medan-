@@ -1,0 +1,68 @@
+<nz-spin nzTip="Loading..." *ngIf="isDataLoading"></nz-spin>
+<div class="card" *ngIf="!isDataLoading">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="equipmentStatusForm" (ngSubmit)="submitForm()" role="form">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-3">
+              <nz-form-control>
+                <h4><b>{{"SEARCH_CRITERIA" | translate }}</b></h4>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'EQUIPMENT_SERIAL' | translate }}" formControlName="p_equib_serial">
+                  <nz-option *ngFor="let medan of equipSerial" [nzValue]="medan.ASSET_SERIAL"
+                    [nzLabel]="lang == 'ar' ? medan.DESCRIPTION : medan.ASSET_NAME">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" [disabled]="equipmentStatusForm.untouched"
+                class="mr-2">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="card-body">
+    <div class="input-group" style="padding-bottom: 11px;">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+          [(ngModel)]="searchText">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+    <nz-table nzBordered #itemsDataTable [nzData]="equipmentStatusModelService.displayData" class="utils__scrollTable"
+      nzPageSize="5" [nzLoading]="isDataLoading">
+      <thead (nzSortChange)="sortData($event)" nzSingleSort>
+        <tr>
+          <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{"ASSET NAME" | translate}}</th>
+          <th class="text-center" nzShowSort nzSortKey="STATUS_ENGLISH">{{"STATUS" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template ngFor let-data [ngForOf]="itemsDataTable.data">
+          <tr>
+            <td class="text-center">{{data.ASSET_NAME}}</td>
+            <td *ngIf="lang == 'en'" class="text-center">{{data.STATUS_ENGLISH}}</td>
+            <td *ngIf="lang == 'ar'" class="text-center">{{data.STATUS_ARABIC}}</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

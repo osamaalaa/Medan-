@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-body">
+        <div id="localVideoContainer" class="local"></div>
+        <div id="remoteContainer" class="remote"></div>
+        <button *ngIf="!fromJoinComponent && shareButton" nz-button nzType="primary" (click)="shareScreen()">{{"SHARE_SCREEN" | translate}}</button>
+        &nbsp;&nbsp;
+        <button *ngIf="!fromJoinComponent && stopButton" nz-button nzType="primary"
+            (click)="stopScreen()">{{"STOP-SCREEN" | translate }}</button>
+        <div id="chatUserListContainer" class="users"></div>
+
+        <div *ngIf="showLoader" class="joiner">
+            Welcome. Please wait while we connecting you....
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+
+        </div>
+    </div>
+</div>
+
+
+

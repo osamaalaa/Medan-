@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <div class="utils__title">
+    
+    <nz-form-label><b>{{"COMMITEE_NAME" | translate }}</b></nz-form-label>{{CommiteeName.COMM_EN}}
+      <!-- <nz-form-label nzFor="COMMENTS"><b>{{"COMMITEE_NAME" | translate }}</b></nz-form-label> --> 
+      <div class="float-right">
+        <button nzType="primary" nz-button (click)="navigateToList()"><i nz-icon nzType="rollback"
+            nzTheme="outline"></i>{{"BACK" | translate }}</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xl-12">
+          <nz-tabset [nzType]="'card'">
+            <nz-tab nzTitle="{{'COMMITTEE_MEMBERS' | translate }}">
+              <app-committee-members></app-committee-members>
+            </nz-tab>
+
+            <nz-tab nzTitle="{{'ACTIVE_MEETINGS' | translate }}">
+              <app-active-meetings></app-active-meetings>
+            </nz-tab>
+
+            <nz-tab nzTitle="{{'FINISHED_MEETINGS' | translate }}">
+              <app-finished-meetings></app-finished-meetings>
+            </nz-tab>
+
+            <nz-tab nzTitle="{{'CLOSED_MEETINGS' | translate }}">
+              <app-closed-meetings></app-closed-meetings>
+            </nz-tab>
+          </nz-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

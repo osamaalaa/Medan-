@@ -1,0 +1,25 @@
+<div class="row d-flex">
+  <div class="col-md-12 embed-pdf">
+    <!-- <nz-empty *ngIf="!attachFormat"></nz-empty> -->
+
+    <div *ngIf="attachFormat === 'pdf';else imageFormat">
+      <nz-affix>
+        <nz-pagination [nzPageSize]="1" [(nzPageIndex)]="pageMember" [nzTotal]="totalPagesMember" [nzSize]="'small'">
+        </nz-pagination>
+      </nz-affix>
+      <pdf-viewer [original-size]="true" [fit-to-page]="true" [src]="attachment"
+        style="display: block; border: solid black" class="embed-pdf-img" [show-all]="false" [page]="pageMember"
+        [original-size]="false" (after-load-complete)="afterLoadCompleteMember($event)">
+      </pdf-viewer>
+    </div>
+    <ng-template #imageFormat>
+        <img [src]="attachment" class="embed-pdf-img">
+    </ng-template>
+    <!-- <div *ngIf="(attachFormat == 'jpeg') || attachFormat == 'png'">
+      <img [src]="attachment" class="embed-pdf-img">
+    </div> -->
+  </div>
+</div>
+
+
+

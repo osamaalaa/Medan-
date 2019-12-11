@@ -1,0 +1,180 @@
+<form nz-form nzLayout="'vertical'" [formGroup]="varianceSearchReportForm" (ngSubmit)="submitForm()" role="form">
+  <!-- .........................................Search criteria label.................................................. -->
+  <div class="mb-2">
+    <nz-form-control>
+      <h4><b>{{'SEARCH_CRITERIA' | translate}}</b></h4>
+    </nz-form-control>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <!-- ...................................From Date........................................................ -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-date-picker class="w-100" nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'REPORT_DATE' | translate }}"
+              formControlName="p_from_date">
+            </nz-date-picker>
+            <div *ngFor="let validation of validation_messages.p_from_date">
+              <nz-form-explain class="red-color"
+                *ngIf="p_from_date.hasError(validation.type) && (p_from_date.dirty || p_from_date.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+        <!-- ...................................To Date........................................................ -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-date-picker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'COMPARISON_DATE' | translate }}"
+              formControlName="p_to_date">
+            </nz-date-picker>
+            <div *ngFor="let validation of validation_messages.p_to_date">
+              <nz-form-explain class="red-color"
+                *ngIf="p_to_date.hasError(validation.type) && (p_to_date.dirty || p_to_date.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+        <!-- ...................................Project........................................................ -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-date-picker class="w-100" nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'REPORT_DATE' | translate }}"
+              formControlName="p_from_date">
+            </nz-date-picker>
+            <div *ngFor="let validation of validation_messages.p_from_date">
+              <nz-form-explain class="red-color"
+                *ngIf="p_from_date.hasError(validation.type) && (p_from_date.dirty || p_from_date.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+        <!-- ...................................To Date........................................................ -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-date-picker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'COMPARISON_DATE' | translate }}"
+              formControlName="p_to_date">
+            </nz-date-picker>
+            <div *ngFor="let validation of validation_messages.p_to_date">
+              <nz-form-explain class="red-color"
+                *ngIf="p_to_date.hasError(validation.type) && (p_to_date.dirty || p_to_date.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ........................................................................................... -->
+  <br><br>
+  <!-- ........................................................................................... -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-select nzShowSearch style="width: 100%; display: block;" nzPlaceHolder="{{'PROJECT' | translate }}"
+              formControlName="p_project_id">
+              <nz-option *ngFor="let medan of projectsList" [nzValue]="medan.PROJECT_ID"
+                [nzLabel]="lang == 'ar' ? medan.PRIMARY_NAME : medan.SECONDARY_NAME">
+              </nz-option>
+            </nz-select>
+            <div *ngFor="let validation of validation_messages.p_project_id">
+              <nz-form-explain class="red-color"
+                *ngIf="p_project_id.hasError(validation.type) && (p_project_id.dirty || p_project_id.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+        <!-- ...................................Asset........................................................ -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-select nzShowSearch style="width: 100%; display: block;" nzPlaceHolder="{{'ASSET' | translate }}"
+              formControlName="p_asset_id">
+              <nz-option *ngFor="let medan of allAssets" [nzValue]="medan.ASSET_ID"
+                [nzLabel]="lang == 'ar' ? medan.DESCRIPTION : medan.ASSET_NAME">
+              </nz-option>
+            </nz-select>
+            <div *ngFor="let validation of validation_messages.p_asset_id">
+              <nz-form-explain class="red-color"
+                *ngIf="p_asset_id.hasError(validation.type) && (p_asset_id.dirty || p_asset_id.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+        <!-- .........................................Service.................................................. -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-select nzShowSearch style="width: 100%; display: block;" nzPlaceHolder="{{'SERVICE' | translate }}"
+              formControlName="p_service_type">
+              <nz-option *ngFor="let medan of servicesList" [nzValue]="medan.TYPE"
+                [nzLabel]="lang == 'ar' ? medan.TITLE_AR : medan.TITLE_EN">
+              </nz-option>
+            </nz-select>
+            <div *ngFor="let validation of validation_messages.p_service_type">
+              <nz-form-explain class="red-color"
+                *ngIf="p_service_type.hasError(validation.type) && (p_service_type.dirty || p_service_type.touched)">
+                {{validation.message | translatecui}}
+              </nz-form-explain>
+            </div>
+          </nz-form-control>
+
+        </div>
+        <!-- .........................................Shift.................................................. -->
+        <div class="col-lg-3">
+
+          <nz-form-control>
+            <nz-select nzShowSearch style="width: 100%; display: block;" nzPlaceHolder="{{'SHIFT' | translate }}"
+              formControlName="p_template_id">
+              <nz-option *ngFor="let medan of allTemplates" [nzValue]="medan.TEMPLATE_ID"
+                [nzLabel]="lang == 'ar' ? medan.TEMPLATE_NAME_AR : medan.TEMPLATE_NAME_EN">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-lg-12">
+
+
+      <div class="row">
+          <div class="col-lg-10">
+            </div>
+        <!-- .......................................buttons.................................................... -->
+        <div class="col-lg-1">
+          <button type="submit" nz-button nzType="primary" [disabled]="varianceSearchReportForm.invalid"
+            class="mr-2">{{"SEARCH" | translate }}</button>
+        </div>
+        <div class="col-lg-1">
+          <button type="button" nz-button nzType="primary" (click)="resetAll()">{{"RESET" | translate }}</button>
+        </div>
+        <!-- ........................................................................................... -->
+      </div>
+    </div>
+  </div>
+
+
+
+</form>

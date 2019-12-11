@@ -1,0 +1,18 @@
+<div style="display: block">
+    <!-- <canvas baseChart height="340" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [plugins]="barChartPlugins" [legend]="barChartLegend" chartType="horizontalBar" class="statistics">
+    </canvas> -->
+    <!-- <canvas baseChart height="600" [datasets]="showDummyData? dummyBarChartData : barChartData" [labels]="showDummyData? dummyNames : barChartLabels" [options]="barChartOptions"
+      [plugins]="barChartPlugins"  [chartType]="barChartType" class="statistics">
+    </canvas> -->
+
+    <!-- <div id="meterialsChart"></div> -->
+    <x-chartist
+    [type]="'Bar'"
+    [data]="overlappingBarData"
+    [options]="overlappingBarOptions"
+    [responsiveOptions]="overlappingResponsiveOptions"
+    class="height-300"
+  >
+  </x-chartist>
+  </div>

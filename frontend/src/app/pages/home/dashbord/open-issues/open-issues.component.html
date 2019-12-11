@@ -1,0 +1,27 @@
+<div class="utils__title">
+  <strong>Open Issues
+  </strong>
+</div>
+<nz-table #meetingIssuestable [nzData]="dashBordSetupModelService.displayData" class="utils__scrollTable" nzPageSize="5"
+  nzShowSizeChanger nzShowTotal [nzLoading]="isDataLoading">
+  <thead>
+    <thead>
+      <tr>
+        <th class="text-center" nzLeft="0px">{{"ISSUE_ID" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"TITLE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"FINAL_RESOLUTION" | translate }}</th>
+      </tr>
+    </thead>
+  <tbody>
+    <ng-template ngFor let-medan [ngForOf]="meetingIssuestable.data">
+      <tr>
+        <td class="text-center">{{medan.ISSUE_ID}}</td>
+        <td class="text-center">{{medan.ISSUE_TITLE}}</td>
+        <td class="text-center">{{medan.FINAL_RESOLUTION}}</td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+
+
+

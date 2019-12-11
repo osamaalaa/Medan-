@@ -1,0 +1,100 @@
+<div>
+  <nz-tabset>
+    <nz-tab nzTitle="{{'VIEW_ISSUE' | translate }}">
+      <div class="card">
+        <div class="card-header">
+          <div class="float-right">
+            <button class="mr-1" nzType="primary" nz-button><i nz-icon nzType="forward"
+                nzTheme="outline"></i>{{"FORWARD" | translate }}</button>
+            <button class="mr-1" nzType="primary" nz-button><i nz-icon nzType="forward"
+                nzTheme="outline"></i>{{"PERMISSION" | translate }}</button>
+            <button class="mr-1" nzType="primary" nz-button>{{"RECEIVE" | translate }}</button>
+            <button class="mr-1" nzType="primary" nz-button><i nz-icon nzType="paper-clip"
+                nzTheme="outline"></i>{{"ATTACHMENTS" | translate }}</button>
+            <button nzType="primary" nz-button (click)="navigateToList()"><i nz-icon nzType="rollback" nzTheme="outline"></i>{{"BACK" | translate }}</button>
+          </div>
+        </div>
+        <hr>
+      <div class="row">
+       
+            
+        <div class="col-lg-10">
+
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"ID:" | translate }}</b></div>
+          <div nz-col nzSpan="9">{{DETAILS.ISSUE_ID}}</div>
+          <div nz-col nzSpan="3"><b>{{"STATUS:" | translate }}</b></div>
+          <div nz-col nzSpan="9"><span *ngIf="DETAILS.READ_STATUS === 1">
+              New
+            </span>
+            <span *ngIf="DETAILS.READ_STATUS === 8">
+              Closed
+            </span>
+            <span *ngIf="DETAILS.READ_STATUS === 16">
+              Resolved
+            </span></div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"ISSUE_TITLE:" | translate }}</b></div>
+          <div nz-col nzSpan="9">{{DETAILS.ISSUE_TITLE}}</div>
+          <div nz-col nzSpan="3"><b>{{"CLASSIFICATION:" | translate }}</b></div>
+          <div nz-col nzSpan="9">{{DETAILS.CLASSIFICATION}}</div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"CREATION_DATE:" | translate }}</b></div>
+          <div nz-col nzSpan="21">{{DETAILS.CREATION_DATE | date}}</div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"ISSUE_PRIORITY:" | translate }}</b></div>
+          <div nz-col nzSpan="9">{{DETAILS.ISSUE_PRIORITY}}</div>
+          <div nz-col nzSpan="3"><b>{{"ASSETS_NAME:" | translate }}</b></div>
+          <div nz-col nzSpan="9"></div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"ISSUE_SUMMARY:" | translate }}</b></div>
+          <div nz-col nzSpan="9">{{DETAILS.ISSUE_SUMMARY}}</div>
+          <div nz-col nzSpan="3"><b>{{"TYPE:" | translate }}</b></div>
+          <div nz-col nzSpan="9">{{DETAILS.ISSUE_TYPE}}</div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"CREATED_BY:" | translate }}</b></div>
+          <div nz-col nzSpan="21">{{DETAILS.CREATED_BY}}</div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"ASSIGNED_TO:" | translate }}</b></div>
+          <div nz-col nzSpan="21">{{DETAILS.ASSIGN_TO}}</div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"FINAL_RESOLUTION:" | translate }}</b></div>
+          <div nz-col nzSpan="21"></div>
+        </div>
+        <br>
+        <div nz-row class="left">
+          <div nz-col nzSpan="3"><b>{{"NOTES:" | translate }}</b></div>
+          <div nz-col nzSpan="21">{{DETAILS.NOTES}}</div>
+        </div>
+        <hr>
+
+        <hr>
+        </div>
+      </div>
+      </div>
+    </nz-tab>
+
+    <nz-tab nzTitle="{{'TRANSACTIONS' | translate }}">
+      <div class="card">
+          <p>{{"TRANSACTIONS" | translate }}</p>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+</div>
+
+
+

@@ -1,0 +1,57 @@
+<nz-card style="margin-top: 5px" nzTitle="{{'STRATEGIC_OBJECTIVE' | translate }}" [nzExtra]="extraTemplate"
+  [nzBodyStyle]="{'height': '28.5em'}">
+  <div nz-row [nzGutter]="4">
+    <div nz-col [nzSpan]="8">
+      <nz-card class="pro" style="background:#243354;color:white">
+        Term 1
+        Study:1
+        25 %
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-card class="pro" style="background:#e82727;color:white">
+        Term 2
+        Study:2
+        51 %
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-card class="pro" style="background:#5f0000;color:white">
+        Term 3
+        Study:3
+        35 %
+      </nz-card>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="4">
+    <div nz-col [nzSpan]="8">
+      <nz-card class="pro" style="background:#5bb11b;color:white">
+        Term 4
+        Study:4
+        65 %
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-card class="pro" style="background:#bd6111;color:white">
+        Term 5
+        Study:5
+        85 %
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-card class="pro" style="background:#8e1717f2;color:white">
+        Term 6
+        Study:6
+        67 %
+      </nz-card>
+    </div>
+  </div>
+</nz-card>
+<ng-template #extraTemplate>
+  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{'ACHIEVE_CMS_SALES_OF_SR_10' | translate }}" style="width: 231px;">
+    <nz-option *ngIf="lang == 'en'" nzValue="Sale 1" nzLabel="Sale 1"></nz-option>
+    <nz-option *ngIf="lang == 'ar'" nzValue="Sale 1" nzLabel="بيع 1"></nz-option>
+    <nz-option *ngIf="lang == 'en'" nzValue="Sale 14" nzLabel="Sale 2"></nz-option>
+    <nz-option *ngIf="lang == 'ar'" nzValue="Sale 14" nzLabel="بيع 2"></nz-option>
+  </nz-select>
+</ng-template>

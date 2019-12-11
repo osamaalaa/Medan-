@@ -1,0 +1,25 @@
+<nz-card nzTitle="{{'STRATEGIC_PERFORMANCE' | translate }}" [nzBodyStyle]="{'height': '29.3em'}">
+  <div nz-row>
+    <div nz-col>
+      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+  <br>
+  <div nz-row > 
+    <div nz-col [nzSpan]="8">
+      <div>{{"ACHIEVEMENT_RATE" | translate }}</div>
+      <nz-progress [nzPercent]="75" [nzWidth]="80" nzType="circle"></nz-progress>
+    </div>
+    <div nz-col [nzSpan]="16">
+  
+      <div>{{"BENEFIT_PROGRESS" | translate }}</div>
+      <br>
+      <nz-progress nzStrokeLinecap="square" [nzPercent]="80" nzSize="small"></nz-progress>
+    </div>
+  </div>
+</nz-card>
+
+
+

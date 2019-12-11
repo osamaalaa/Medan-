@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">
+    <div class="utils__title">
+      <strong>{{"INCIDENT_REPORT_DATA" | translate }}</strong>
+      <button class="float-right" nzType="primary" nz-button [routerLink]="['add']"><i nz-icon nzType="plus"
+          nzTheme="outline"></i>{{"NEW" | translate }}</button>
+    </div>
+  </div>
+  <hr>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xl-12">
+        <nz-tabset [nzType]="'card'">
+          <nz-tab nzTitle="{{'OPEN_INCIDENTS' | translate }}">
+            <app-incident-report-data></app-incident-report-data>
+          </nz-tab>
+          <nz-tab nzTitle="{{'INCIDENT_REPORT' | translate }}">
+            <app-open-incident></app-open-incident>
+          </nz-tab>
+        </nz-tabset>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

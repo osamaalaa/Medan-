@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header">
+
+  </div>
+  <div class="card-body">
+    <form nz-form nzLayout="'vertical'" [formGroup]="addCommiteeReportForm" (ngSubmit)="submitForm()" role="form">
+      <div class="row">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzFor="EMPLOYEE_ID ">{{"EMPLOYEE" | translate }}<span class="red-color">*</span></nz-form-label>
+            <nz-form-control>
+
+              <nz-select nzShowSearch [nzLoading]="isfetchingLookup" nzShowSearch nzServerSearch
+                nzPlaceHolder="{{'PICK_COMMITTEE_MEMBER' | translate }}" formControlName="EMPLOYEE_ID" [nzShowArrow]="false"
+                [nzFilterOption]="nzFilterOption" (nzOnSearch)="committeeMember($event)">
+                <nz-option *ngFor="let o of allMembers"
+
+
+                  [nzLabel]="lang == 'ar' ? o.FIRST_NAME+o.SECOND_NAME+o.THIRD_NAME+o.LAST_NAME : o.FIRST_NAME2+o.S_SECOND_NAME+o.S_THIRD_NAME+o.S_LAST_NAME"
+                  [nzValue]="o.EMPLOYEE_ID">
+                </nz-option>
+              </nz-select>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzFor="MEMBER_ROLE ">{{"MEMBER_ROLE" | translate }}<span class="red-color">*</span></nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                nzPlaceHolder="{{'CHOOSE_MEMBER_ROLE' | translate }}" formControlName="MEMBER_ROLE">
+                <nz-option *ngFor="let medan of usersList"
+                    [nzLabel]="lang == 'ar' ? medan.PRIMARY_NAME : medan.SECONDARY_NAME"  [nzValue]="medan.USER_CODE" >
+
+                </nz-option>
+              </nz-select>
+              <div *ngFor="let validation of validation_messages.MEMBER_ROLE">
+                <nz-form-explain class="red-color"
+                  *ngIf="MEMBER_ROLE.hasError(validation.type) && (MEMBER_ROLE.dirty || MEMBER_ROLE.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-10">
+          <div class="float-right">
+            <button type="submit" nz-button nzType="primary" class="mr-2">{{"SAVE_MEMBER" | translate }}</button>
+            <button type="button" nz-button (click)="cancel()">{{"CANCEL" | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

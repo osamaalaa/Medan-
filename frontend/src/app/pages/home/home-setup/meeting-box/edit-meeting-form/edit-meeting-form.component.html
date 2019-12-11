@@ -1,0 +1,128 @@
+<div class="card">
+  <div class="card-header">
+    <div class="utils__title">
+
+    </div>
+  </div>
+  <div class="card-body">
+    <form nz-form nzLayout="'vertical'" [formGroup]="meetingReporteditForm" role="form">
+      <div class="row">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzFor="MEETING_DESCRIPTION">Meeting Description
+            </nz-form-label>
+            <nz-form-control>
+              <textarea nz-input maxlength="1024" rows="2" nz-input formControlName="MEETING_DESCRIPTION"
+                placeholder="{{'MEETING_DESCRIPTION' | translate }}"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzFor="LOCATION">Location
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="LOCATION" placeholder="{{'ENTER_LOCATION' | translate }}">
+
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+          <nz-form-item>
+            <nz-form-label nzFor="MEETING_DATE">{{"MEETING_DATE" | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-date-picker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'MEETING__DATE' | translate }}" formControlName="MEETING_DATE">
+              </nz-date-picker>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-lg-3">
+          <nz-form-item>
+            <nz-form-label nzFor="START_TIME_STR">{{"START_TIME" | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-time-picker nzPlaceHolder="{{'START_TIME' | translate }}" [nzUse12Hours]="true" nzFormat="h:mm a"
+                formControlName="START_TIME_STR">
+              </nz-time-picker>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-lg-3">
+          <nz-form-item>
+            <nz-form-label nzFor="END_TIME_STR">{{"END_TIME" | translate }}</nz-form-label>
+            <nz-form-control>
+              <nz-time-picker nzPlaceHolder="{{'END_TIME' | translate }}" [nzUse12Hours]="true" nzFormat="h:mm a"
+                formControlName="END_TIME_STR">
+              </nz-time-picker>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12">
+          <nz-tabset [nzType]="'card'">
+            <nz-tab nzTitle="{{'AGENDA' | translate }}" (nzClick)="uploadInAgenda()">
+              <nz-form-label>{{"UPLOAD_FILE" | translate }}<span class="red-color">*</span></nz-form-label><br>
+              <nz-upload (nzFileList)="fileList" [nzBeforeUpload]="beforeUpload">
+                <button (click)="updateForm()" nz-button [disabled]="fileList.length != 0"><i nz-icon
+                    nzType="upload"></i><span>{{"UPLOAD_FILE" | translate }}</span></button>
+
+              </nz-upload>
+              <nz-upload *ngIf="fileList.length == 0" [nzFileList]="displayList">
+
+              </nz-upload>
+              <nz-upload *ngIf="fileList.length != 0" [nzFileList]="fileList">
+
+              </nz-upload>
+
+
+            </nz-tab>
+            <nz-tab nzTitle="{{'MINUTES_OF_MEETING' | translate }}" (nzClick)="uploadInMintus()">
+              <nz-form-label>{{"UPLOAD_FILE_MINUTES_OF_MEETING" | translate }}<span class="red-color">*</span></nz-form-label><br>
+              <nz-upload [(nzFileList)]="fileListMom" [nzBeforeUpload]="beforeUploadMom">
+                <button  (click)="getMeetingMomId()" nz-button><i nz-icon nzType="upload"></i><span>Update
+                    File</span></button>
+              </nz-upload>
+
+              <nz-upload *ngIf="activeMomAttachFile && fileListMom.length == 0" [nzFileList]="displayList">
+
+                </nz-upload>
+
+
+            </nz-tab>
+          </nz-tabset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-10">
+          <div class="float-right">
+
+            <button *ngIf="uploadeAge" nz-button [nzType]="'primary'" [disabled]="fileList.length == 0"
+              [nzLoading]="uploading" (click)="presentationsUpload()" style="margin-top: 16px">
+              {{ uploading ? 'Uploading' : 'Save' }}
+            </button>
+            &nbsp;
+            <button *ngIf="uploadeMom" nz-button [nzType]="'primary'" [disabled]="fileListMom.length == 0"
+              [nzLoading]="uploadingMOm" (click)="minutesUpload()" style="margin-top: 16px">
+              {{ uploadingMom ? 'uploading' : 'Save' }}
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" nz-button (click)="cancel()">{{"CANCEL" | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

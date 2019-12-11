@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-6 embed-pdf">
+    <nz-empty *ngIf="!presentaionAttachFormat"></nz-empty>
+    <div *ngIf="presentaionAttachFormat === 'pdf';else imageFormat">
+      <nz-affix>
+        <nz-pagination [nzPageSize]="1" [(nzPageIndex)]="pagePresentation" [nzTotal]="totalPagesPresentation"
+          [nzSize]="'small'">
+        </nz-pagination>
+      </nz-affix>
+      <pdf-viewer [original-size]="true" [fit-to-page]="true" [src]="presentationFile"
+        style="display: block; border: solid black" class="embed-pdf-img" [show-all]="false" [page]="pagePresentation"
+        [original-size]="false" (after-load-complete)="afterLoadCompletePresentation($event)">
+      </pdf-viewer>
+    </div>
+    <ng-template #imageFormat>
+        <img [src]="presentationFile" class="embed-pdf-img">
+    </ng-template>
+    <!-- <div *ngIf="presentaionAttachFormat === 'jpeg' || 'png' || !'pdf'">
+      <img [src]="presentationFile" class="embed-pdf-img">
+    </div> -->
+  </div>
+  <div class="col-md-6 div-flex">
+    <div class="row">
+      <h4><b> <span *ngIf="preComments.length">{{preComments.length}}</span>&nbsp;<span
+            *ngIf="preComments.length">{{"COMMENTS" | translate }}</span></b></h4>
+    </div>
+    <nz-list *ngIf="preComments.length" [nzDataSource]="preComments" [nzRenderItem]="preComment"
+      [nzItemLayout]="'horizontal'">
+      <ng-template #preComment let-preComment>
+        <nz-comment [nzAuthor]="preComment.FIRST_NAME_EN + ' ' + preComment.SECOND_NAME_EN"
+          [nzDatetime]="preComment.CREATION_DATE | date:'medium'">
+          <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="preComment.avatar"></nz-avatar>
+          <nz-comment-content>
+            <p>{{ preComment.USER_COMMENTS }}</p>
+          </nz-comment-content>
+        </nz-comment>
+      </ng-template>
+    </nz-list>
+    <nz-comment>
+    </nz-comment>
+    <div class="div2">
+      <div>
+        <textarea [disabled]="!presentationFile" style="width: 85%" rows="2" nz-input
+          [(ngModel)]="inputValuePresentaion"></textarea>
+        <button style="margin: 10px" (click)="preSendComment()" nz-button nzType="primary"
+          [disabled]="!presentationFile  || !inputValuePresentaion" class="float-right">{{"SEND" | translate }}</button>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+
+
+

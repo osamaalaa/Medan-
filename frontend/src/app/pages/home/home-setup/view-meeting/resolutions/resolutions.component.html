@@ -1,0 +1,27 @@
+<nz-empty *ngIf="meetingData?.STATUS != 4"></nz-empty>
+<div class="card-body" *ngIf="meetingData?.STATUS == 4">
+  <div class="row">
+    <div class="col-md-12 embed-pdf">
+      <nz-empty *ngIf="!resolutionsAttachFormat"></nz-empty>
+      <div *ngIf="resolutionsAttachFormat === 'pdf';else imageFormat">
+        <nz-affix>
+          <nz-pagination [nzPageSize]="1" [(nzPageIndex)]="pageResolution" [nzTotal]="totalPagesResolution"
+            [nzSize]="'small'"></nz-pagination>
+        </nz-affix>
+        <pdf-viewer [original-size]="true" [fit-to-page]="true" [src]="resolutionsAttach"
+          style="display: block; border: solid black" class="embed-pdf-img" [show-all]="false" [page]="pageResolution"
+          [original-size]="false" (after-load-complete)="afterLoadCompleteResolution($event)">
+        </pdf-viewer>
+      </div>
+      <ng-template #imageFormat>
+          <img [src]="resolutionsAttach" class="embed-pdf-img">
+      </ng-template>
+      <!-- <div *ngIf="resolutionsAttachFormat === 'jpeg' || 'png' && !'pdf'">
+        <img [src]="resolutionsAttach" class="embed-pdf-img">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+

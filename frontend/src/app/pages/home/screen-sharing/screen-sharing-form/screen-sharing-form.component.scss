@@ -1,0 +1,33 @@
+#remoteContainer > video {
+    width: 100% !important;
+    height: 100vh !important;
+    object-fit: cover;
+}
+
+.local {
+    display: none;
+}
+
+#localVideoContainer > video {
+    display: none;
+}
+
+.users {
+    display: none;
+}
+
+img {
+    cursor: pointer;
+}
+
+.joiner{
+    align-items: center;
+    text-align: center;
+    height: 34em;
+    vertical-align: ce;
+    padding-top: 13em;
+    font-size: larger;
+    font-weight: bolder;
+    line-height: 6em;
+
+}

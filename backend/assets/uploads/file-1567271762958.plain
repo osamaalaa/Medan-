@@ -1,0 +1,26 @@
+  UNITS_ID,
+                 (SELECT nvl(L.SECONDARY_NAME,L.PRIMARY_NAME)  FROM HR.LOOKUP_DETAILS L Where LOOKUP_ID = 125 AND STATUS = 1 and L.LOOKUP_DETAIL_ID = I.UNITS_ID) UNITS_NAME,
+
+nzLeft="0px"
+
+///////////////
+ WHERE DELETED = 0 AND STATUS = 1
+////////////////////////
+http://localhost:9004/storesItemsGroupNO/getAllstoresItemsGroupNO
+///
+set ORACLE_HOME=d:\instantclient_12_2
+set TNS_ADMIN=d:\instantclient_12_2\network\admin
+////
+<input maxlength="250" nz-input name="EN_NAME" type="text" id="EN_NAME" placeholder="English Name"
+                        formControlName="EN_NAME">
+
+////SET DELETED = 1 , DELETED_DATE = sysdate
+//
+Screens For General Data
+ansd
+///
+ items_suppliers I
+            WHERE items_suppliers_id =:ITEMS_SUPPLIERS_ID AND deleted = 0 `,
+///
+  items_suppliers I
+             deleted = 0 `,

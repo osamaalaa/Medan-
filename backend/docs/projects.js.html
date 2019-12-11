@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Medan Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+
+
+
+                    <h1 class="navbar-item">Medan Documentation</h1>
+
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+
+        </div>
+    </div>
+
+    </nav>
+    </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>Projects.js</h1>
+                    </header>
+
+
+
+
+
+
+                    <section>
+                        <article>
+                            <pre class="prettyprint source linenums"><code>require('module-alias/register');
+                                require("module-alias/register");
+                                let express = require("express");
+                                let router = express.Router();
+                                let statements = require("./projectsSQL");
+                                let bodyconverter = require("@conv/bodyConverter");
+                                let checkdataexists = require("@vals/dataexists");
+                                let validateprojectsSt = require('@joi/validateSt');
+                                let businessPool = require("@lib/businessPool");
+                                let servicePool = require('@lib/servicePool');
+                                
+                                <div id="getAllProjects">
+                                router.get('/getAllProjects', (req, res) =>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getAllProjects.statment,
+                                              []
+                                            );
+                                });
+                            </div>
+                            <div id="getOneProjectByID">
+                                router.get('/getOneProjectByID/:PROJECT_ID',(req, res)=>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getOneProjectByID.statment,
+                                             {'PROJECT_ID' :req.params.PROJECT_ID}
+                                            );
+                                });
+                            </div>
+                            <div id="insertProjects">
+                                router.post('/insertProjects', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.insertProjects.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.insertProjects.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                            </div>
+                            <div id="updateProject">
+                                router.post('/updateProject', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.updateProject.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.updateProject.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                            </div>
+                            <div id="getClients">
+                                router.get('/getClients/:project_id', (req, res) =>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getClients.statment,
+                                              { project_id : req.params.project_id}
+                                            );
+                                });
+                            </div>
+                            <div id="getProjectTypes">
+                                router.get('/getProjectTypes', (req, res) =>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getProjectTypes.statment,
+                                              []
+                                            );
+                                });
+                            </div>
+                            <div id="getAssetBasedOnProject">
+                                router.get('/getAssetBasedOnProject/:PROJECT_ID', (req, res) =>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getAssetBasedOnProject.statment,
+                                              { PROJECT_ID : req.params.PROJECT_ID}
+                                            );
+                                });
+                            </div>
+                                
+                                router.get('/getAssetBasedOnProjectCompliance/:PROJECT_ID', (req, res) =>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getAssetBasedOnProjectCompliance.statment,
+                                              { PROJECT_ID : req.params.PROJECT_ID}
+                                            );
+                                });
+                                
+                                
+                                router.get('/getLocations/:project_id', (req, res) =>{
+                                  servicePool(req,
+                                              res,
+                                              statements.getLocations.statment,
+                                             { project_id : req.params.project_id }
+                                            );
+                                });
+                                
+                                router.post('/insertProjectTree', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.insertProjectTree.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.insertProjectTree.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                                
+                                
+                                router.get('/getProjectsTree/:project_id', (req, res) =>{
+                                  businessPool(req,
+                                              res,
+                                              statements.getProjectsTree.statment,
+                                             { project_id : req.params.project_id }
+                                            ).then(get1=>{
+                                            // console.log(get1.rows)
+                                              businessPool(req, res, statements.getProjectsTreeWithNoParent.statment,
+                                                { project_id : req.params.project_id }).then(get2=>{
+                                                 // console.log(get2.rows)
+                                                  businessPool(req, res, statements.getChildTree.statement, {project_id : req.params.project_id }).then(parent=>{
+                                                    res.status(200).json({
+                                                      parent : parent.rows,
+                                                      child : get1.rows,
+                                                      rows : get2.rows
+                                                  })
+                                                  })
+                                                })
+                                            })
+                                });
+                                
+                                
+                                router.post('/deleteProjectTree', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.deleteProjectTree.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.deleteProjectTree.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                                
+                                router.post('/updateProjectTree', checkdataexists, (req, res) => {
+                                  bodyconverter.bodyconverter(req, res, req.body, statements.updateProjectTree.returns).then(convertedbody => {
+                                    servicePool(req, res, statements.updateProjectTree.statement, convertedbody);
+                                  }).catch(error => {
+                                    res.status(400).json(error);
+                                  });
+                                });
+                                
+                                
+                                router.get('/getPinTree/:project_Id', (req, res) => {
+                                  servicePool(req, res, statements.getPinTree.statement, { project_Id : req.params.project_Id})
+                                })
+                                 <div id="getstatus">
+                                router.get('/getstatus', (req, res) => {
+                                    businessPool(req, res, statements.getstatus.statement, []).then(e => {
+                                      res.status(200).json({
+                                        status: 200,
+                                        message: "Success",
+                                        0: "not active",
+                                        1: "new project and no spons and assign to manager",
+                                        2: "project assign sponsar and client mgr boq and mile",
+                                        3: "project ready to export and import plan",
+                                        4: "finished"
+                                      })
+                                    })
+                                  })
+                                </div>
+                                module.exports = router;
+                                
+
+
+
+
+                </code></pre>
+                        </article>
+                    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>Documentation generated by back-end development team</p>
+        </div>
+    </footer>
+
+    <script>
+        prettyPrint();
+    </script>
+    <script src="scripts/app.min.js"></script>
+    <script src="scripts/linenumber.js">
+    </script>
+</body>
+
+</html>

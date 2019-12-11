@@ -1,0 +1,18 @@
+<nz-card>
+  <nz-descriptions nzTitle="{{'VIEW_WORK_ORDER' | translate }}" nzBordered>
+    <nz-descriptions-item nzTitle="{{'CODE' | translate }}" >{{incidentReport.WORK_ORDER_ID}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'DESCRIPTION' | translate }}" >{{incidentReport.DESCRIPTION}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'CREATION_DATE' | translate }}" >{{incidentReport.CREATION_DATE | date}} </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'CLIENT_NAME' | translate }}" >{{incidentReport.CLIENT_NAME}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'PROJECT_MANAGER' | translate }}" >{{incidentReport.MANAGER_NAME}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'CREATED_BY' | translate }}" >{{incidentReport.WORK_ORDER_ID_NAME}}</nz-descriptions-item>
+  </nz-descriptions>
+
+  <app-incident-report-form [PROJECT_ID]="PROJECT_ID" (onSubmit)="addNewIncident($event)"
+  (onCancel)="navigateToList()">
+    <span class="header-incident-report"></span>
+  </app-incident-report-form>
+</nz-card>
+
+
+

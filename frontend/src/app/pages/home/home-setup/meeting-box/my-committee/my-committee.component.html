@@ -1,0 +1,39 @@
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()" [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+</div>
+<nz-table #Committ [nzData]="myCommitteeMeetingModelService.displayData" class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+  <thead nzSingleSort>
+    <thead>
+      <tr>
+        <th class="text-center" nzLeft="0px">{{"NAME" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBERS" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"ACTIVE_MEETINGS" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"FINISHED_MEETINGS" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"CLOSED_MEETINGS" | translate }}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-medan [ngForOf]="Committ.data">
+        <tr>
+          <td *ngIf="lang == 'en'" class="text-center"><a style="color: #26B99A;" [routerLink]="['commitee',medan.COMMITTEE_ID,'details']">{{medan.COMMITTEE_NAME_EN}}</a></td>
+          <td *ngIf="lang == 'ar'" class="text-center"><a style="color:#26B99A;" [routerLink]="['commitee',medan.COMMITTEE_ID,'details']">{{medan.COMMITTEE_NAME_AR}}</a></td>
+          <td class="text-center">{{medan.MEMBERS_COUNT | translatenumber}}</td>
+          <td class="text-center">{{medan.ACTIVE_MEETINGS | translatenumber}}</td>
+          <td class="text-center">{{medan.FINISHED_MEETINGS | translatenumber}}</td>
+          <td class="text-center">{{medan.CLOSED_MEETINGS | translatenumber}}</td>
+          <td>
+            <button *ngIf="isManager" nzType="primary" nz-button [routerLink]="['meetingbox',medan.COMMITTEE_ID,'add']"><i
+              nz-icon nzType="plus" nzTheme="outline"></i>
+              {{"NEW" | translate }}</button>
+        </tr>
+      </ng-template>
+    </tbody>
+</nz-table>

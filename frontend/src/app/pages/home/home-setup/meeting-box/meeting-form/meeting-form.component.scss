@@ -1,0 +1,32 @@
+.width-100{
+    width: 100%
+}
+nz-date-picker ::ng-deep .ant-calendar-picker{
+    width: 100%;
+  }
+  .tab{
+    padding-left: 12px;
+  }
+  .tab1{
+    padding-left: 20px;   
+  }
+
+  ::ng-deep .ant-upload-list-item-actions .anticon-eye-o{
+    display:none;
+  }
+  ::ng-deep  .upload-icon {
+    font-size: 32px;
+    color: #999;
+  }
+ ::ng-deep .ant-btn-group{
+   padding-left:10px;
+
+  }
+  ::ng-deep .ant-modal-content{
+    width:600px;
+    height:255px;
+
+  }
+ .member{
+   margin-left: 16px;
+ }

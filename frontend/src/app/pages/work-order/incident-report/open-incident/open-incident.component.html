@@ -1,0 +1,56 @@
+<br>
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+      [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+</div>
+<nz-table nzBordered #incidentreportDataTable [nzData]="openIncidentModelService.displayData"
+class="utils__scrollTable" nzShowSizeChanger nzShowTotal [nzLoading]="isDataLoading">
+<thead (nzSortChange)="sortData($event)" nzSingleSort>
+  <tr>
+  
+    <th class="text-center" nzShowSort nzSortKey="INCIDENT_TITLE">{{"TITLE" | translate }}</th>
+    <th class="text-center" nzShowSort nzSortKey="INCIDENT_BRIEF">{{"DESCRIPTION" | translate }}</th>
+    <th class="text-center" nzShowSort nzSortKey="INCIDENT_START_DATE">{{"START_DATE" | translate }}</th>
+    <th class="text-center" nzShowSort nzSortKey="INCIDENT_END_DATE">{{"END_DATE" | translate }}</th>
+  
+    <th class="text-center" nzShowSort nzSortKey="REF_REQUEST_TYPE">{{"TYPE" | translate }}</th>
+    <th class="text-center" nzShowSort nzSortKey="STATUS">{{"STATUS" | translate }}</th>
+  </tr>
+</thead>
+<tbody>
+  <ng-template ngFor let-data [ngForOf]="incidentreportDataTable.data">
+    <tr>
+   
+      <td class="text-center">{{data.INCIDENT_TITLE}}</td>
+      <td class="text-center">{{data.INCIDENT_BRIEF}}</td>
+      <td class="text-center">{{data.INCIDENT_START_DATE | date}}</td>
+      <td class="text-center">{{data.INCIDENT_END_DATE | date}}</td>
+     
+      <td class="text-center">
+        <span *ngIf="data.REF_REQUEST_TYPE === 1">
+          WorkOrder
+        </span>
+        <span *ngIf="data.REF_REQUEST_TYPE == 2">
+          Task
+        </span>
+      </td>
+      <td class="text-center">
+        <span *ngIf="data.STATUS === 1">
+          New
+        </span>
+      </td>
+    </tr>
+  </ng-template>
+</tbody>
+</nz-table>
+
+
+
+

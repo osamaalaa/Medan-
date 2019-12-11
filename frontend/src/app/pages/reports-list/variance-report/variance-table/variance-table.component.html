@@ -1,0 +1,107 @@
+<div class="input-group" style="padding-bottom: 11px;">
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+      [(ngModel)]="searchText">
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon type="search"></i>
+  </ng-template>
+</div>
+
+<div class="float-right">
+  <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon
+      nzType="download"></i>
+    <!-- {{"EXPORT_TO_EXCEL" | translate}} -->
+  </button>
+</div>
+<br><br>
+
+<div>
+  <nz-table nzBordered #reportDataTable [nzData]="varianceTableModelService.displayData" class="utils__scrollTable"
+    nzPageSize="5" [nzLoading]="isDataLoading">
+    <thead (nzSortChange)="sortData($event)" nzSingleSort>
+      <tr>
+        <th class="text-center" nzShowSort nzSortKey="PRIMARY_NAME">{{"PROJECT_NAME" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{"ASSET_NAME" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="BOQ_DESCRIPTION">{{"DESCRIPTION" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="JOB_ORDER_STATUS_EN">{{"STATUS" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="TEMPLATE_NAME_EN">{{"SHIFT" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="SERVICE_TITLE_EN">{{"SERVICE_TITLE" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="SERVICE_TYPE_EN">{{"SERVICE_TYPE" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="reportDataTable.data">
+        <tr>
+          <td class="text-center">{{data.PRIMARY_NAME}}</td>
+          <td class="text-center">{{data.ASSET_NAME}}</td>
+          <td class="text-center">{{data.BOQ_DESCRIPTION}}</td>
+          <td *ngIf="lang == 'en'" class="text-center">{{data.JOB_ORDER_STATUS_EN }}</td>
+          <td *ngIf="lang == 'ar'" class="text-center">{{data.JOB_ORDER_STATUS_AR }}</td>
+          <td *ngIf="lang == 'en'" class="text-center">{{data.TEMPLATE_NAME_EN }}</td>
+          <td *ngIf="lang == 'ar'" class="text-center">{{data.TEMPLATE_NAME_AR }}</td>
+          <td *ngIf="lang == 'en'" class="text-center">{{data.SERVICE_TITLE_EN }}</td>
+          <td *ngIf="lang == 'ar'" class="text-center">{{data.SERVICE_TITLE_AR }}</td>
+          <td *ngIf="lang == 'en'" class="text-center">{{data.SERVICE_TYPE_EN }}</td>
+          <td *ngIf="lang == 'ar'" class="text-center">{{data.SERVICE_TYPE_AR }}</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+</div>
+
+<div #TABLE #table style="display: none">
+
+  <table>
+    <thead></thead>
+    <tbody>
+      <tr>
+
+        <td class="text-center">FROM DATE:</td>
+        <td class="text-center">{{parameters.p_from_date}}</td>
+
+        <td class="text-center">TO DATE:</td>
+        <td class="text-center">{{parameters.p_to_date}}</td>
+
+        <td class="text-center">PROJECT NAME:</td>
+        <td class="text-center">{{projectLabel}}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table>
+    <tr>
+      <td class="text-center"></td>
+    </tr>
+    <thead (nzSortChange)="sortData($event)" nzSingleSort>
+      <tr>
+        <th class="text-center" nzShowSort nzSortKey="PRIMARY_NAME">{{"PROJECT_NAME" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="ASSET_NAME">{{"ASSET_NAME" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="BOQ_DESCRIPTION">{{"DESCRIPTION" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="JOB_ORDER_STATUS_EN">{{"STATUS" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="TEMPLATE_NAME_EN">{{"SHIFT" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="SERVICE_TITLE_EN">{{"SERVICE_TITLE" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="SERVICE_TYPE_EN">{{"SERVICE_TYPE" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let data of varianceTableModelService.displayData">
+        <td class="text-center">{{data.PRIMARY_NAME}}</td>
+        <td class="text-center">{{data.ASSET_NAME}}</td>
+        <td class="text-center">{{data.BOQ_DESCRIPTION}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.JOB_ORDER_STATUS_EN }}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.JOB_ORDER_STATUS_AR }}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.TEMPLATE_NAME_EN }}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.TEMPLATE_NAME_AR }}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.SERVICE_TITLE_EN }}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.SERVICE_TITLE_AR }}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.SERVICE_TYPE_EN }}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.SERVICE_TYPE_AR }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

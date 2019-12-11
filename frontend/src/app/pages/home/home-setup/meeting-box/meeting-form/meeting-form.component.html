@@ -1,0 +1,206 @@
+<div class="card">
+  <div class="card-header">
+    <div class="utils__title">
+      <div><strong>{{"ADD_NEW_MEETING" | translate }}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <form nz-form nzLayout="'vertical'" [formGroup]="meetingReportForm" role="form">
+      <div class="row">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzFor="MEETING_DESCRIPTION">{{"MEETING_DESCRIPTION" | translate }}<span class="red-color">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <textarea maxlength="1024" rows="2" nz-input formControlName="MEETING_DESCRIPTION"
+                placeholder="{{'MEETING_DESCRIPTION' | translate }}"></textarea>
+              <div *ngFor="let validation of validation_messages.MEETING_DESCRIPTION">
+                <nz-form-explain class="red-color"
+                  *ngIf="MEETING_DESCRIPTION.hasError(validation.type) && (MEETING_DESCRIPTION.dirty || MEETING_DESCRIPTION.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10">
+          <nz-form-item>
+            <nz-form-label nzFor="LOCATION">{{"LOCATION" | translate }}<span class="red-color">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="LOCATION" placeholder="{{'ENTER_LOCATION' | translate }}">
+              <div *ngFor="let validation of validation_messages.LOCATION">
+                <nz-form-explain class="red-color"
+                  *ngIf="LOCATION.hasError(validation.type) && (LOCATION.dirty || LOCATION.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <nz-form-item>
+            <nz-form-label nzFor="MEETING_DATE">{{"MEETING_DATE" | translate }}<span class="red-color">*</span></nz-form-label>
+            <nz-form-control>
+              <cui-datepicker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'MEETING__DATE' | translate }}" formControlName="MEETING_DATE">
+              </cui-datepicker>
+              <div *ngFor="let validation of validation_messages.MEETING_DATE">
+                <nz-form-explain class="red-color"
+                  *ngIf="MEETING_DATE.hasError(validation.type) && (MEETING_DATE.dirty || MEETING_DATE.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-lg-3">
+          <nz-form-item>
+            <nz-form-label nzFor="START_TIME_STR">{{"START_TIME" | translate }}<span class="red-color">*</span></nz-form-label>
+            <nz-form-control>
+              <nz-time-picker nzPlaceHolder="{{'START_TIME' | translate }}" [nzUse12Hours]="true" nzFormat="h:mm a"
+                formControlName="START_TIME_STR">
+              </nz-time-picker>
+              <div *ngFor="let validation of validation_messages.START_TIME_STR">
+                <nz-form-explain class="red-color"
+                  *ngIf="START_TIME_STR.hasError(validation.type) && (START_TIME_STR.dirty || START_TIME_STR.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-lg-3">
+          <nz-form-item>
+            <nz-form-label nzFor="END_TIME_STR">{{"END_TIME" | translate }}<span class="red-color">*</span></nz-form-label>
+            <nz-form-control>
+              <nz-time-picker nzPlaceHolder="{{'END_TIME' | translate }}" [nzUse12Hours]="true" nzFormat="h:mm a"
+                formControlName="END_TIME_STR">
+              </nz-time-picker>
+              <div *ngFor="let validation of validation_messages.END_TIME_STR">
+                <nz-form-explain class="red-color"
+                  *ngIf="END_TIME_STR.hasError(validation.type) && (END_TIME_STR.dirty || END_TIME_STR.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12">
+          <nz-tabset [nzType]="'card'">
+            <nz-tab nzTitle="{{'AGENDA' | translate }}" >
+              <nz-form-label>{{"UPLOAD_FILE_AGENDA" | translate }}<span class="red-color">*</span></nz-form-label><br>
+              <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                <button (click)="submitForm()"
+                  [disabled]="!meetingReportForm.valid || fileList.length != 0" nz-button><i nz-icon
+                    nzType="upload"></i><span>{{"SELECT_FILE" | translate }}</span></button>
+              </nz-upload>
+            
+            </nz-tab>
+
+            <nz-tab nzTitle="{{'PRESENTATION' | translate }}">
+              <nz-form-label>{{"UPLOAD_FILE_PRESENTAION" | translate }}<span class="red-color">*</span></nz-form-label><br>
+              <nz-upload [(nzFileList)]="fileListPre" [nzBeforeUpload]="beforeUploadPre">
+                <button [disabled]="!meetingReportForm.valid  || fileListPre.length != 0" nz-button><i nz-icon
+                    nzType="upload"></i><span>{{"SELECT_FILE" | translate }}</span></button>
+              </nz-upload>
+            </nz-tab>
+            <nz-tab nzTitle="{{'MEETING_MEMBERS' | translate }}">
+              <div class="row">
+                <button class="mr-1 member" nzType="primary" nz-button [nzType]="'primary'"
+                  (click)="openMemberFormModal()"  [disabled]="!meetingReportForm.valid || fileListPre.length == 0 || singleCommittee"
+                  >{{"NEW_COMMITTEE_MEMBER" | translate }}</button>
+
+
+                <button class="mr-1" nzType="primary" nz-button (click)="AllCommitteeMembers()"
+                  [disabled]="!meetingReportForm.valid || fileListPre.length == 0 || allCommittee">{{"ADD_ALL_COMMITTEE_MEMBERS" | translate }}</button>
+              </div>
+            
+              <nz-table *ngIf="addCommitteMembersDiv" #Committee [nzData]="committeeMembers"
+                class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+                <thead (nzSortChange)="sortData($event)" nzSingleSort>
+                  <thead>
+                    <tr>
+                      <th class="text-center" nzLeft="0px">{{"NAME" | translate }}</th>
+                      <th class="text-center" nzLeft="0px">{{"MEMBER_ROLE" | translate }}</th>
+                      <th class="text-center" nzLeft="0px">{{"MEMBER_EMAIL" | translate }}</th>
+                      <th class="text-center" nzLeft="0px">{{"MEMBER_PHONE" | translate }}</th>
+                      
+                    </tr>
+                  </thead>
+                <tbody>
+                  <ng-template ngFor let-medan [ngForOf]="Committee.data">
+                    <tr>
+                      <td *ngIf="lang == 'en'" class="text-center">{{medan.EMPLOYEE_NAME_EN}}</td>
+                      <td *ngIf="lang == 'ar'" class="text-center">{{medan.EMPLOYEE_NAME_AR}}</td>
+                      <td *ngIf="lang == 'en'" class="text-center">{{medan.MEMEBR_ROL_EN}}</td>
+                      <td *ngIf="lang == 'ar'" class="text-center">{{medan.MEMEBR_ROL_AR}}</td>
+                      <td class="text-center">{{medan.EMPLOYEE_EMAIL}}</td>
+                      <td class="text-center">{{medan.PHONE}}</td>
+                      
+                    </tr>
+                  </ng-template>
+                </tbody>
+              </nz-table>
+              
+              <nz-table *ngIf="allCommitteMembersDiv" #OldMeetings [nzData]="committeeMembers"
+                class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+                <thead (nzSortChange)="sortData($event)" nzSingleSort>
+                  <thead>
+                    <tr>
+                      <th class="text-center" nzLeft="0px">{{"NAME" | translate }}</th>
+                      <th class="text-center" nzLeft="0px">{{"MEMBER_ROLE" | translate }}</th>
+                      <th class="text-center" nzLeft="0px">{{"MEMBER_EMAIL" | translate }}</th>
+                      <th class="text-center" nzLeft="0px">{{"MEMBER_PHONE" | translate }}</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                <tbody>
+                  <ng-template ngFor let-medan [ngForOf]="OldMeetings.data">
+                    <tr>
+                      <td *ngIf="lang == 'en'" class="text-center">{{medan.EMPLOYEE_NAME_EN}}</td>
+                      <td *ngIf="lang == 'ar'" class="text-center">{{medan.EMPLOYEE_NAME_AR}}</td>
+                      <td *ngIf="lang == 'en'" class="text-center">{{medan.MEMEBR_ROL_EN}}</td>
+                      <td *ngIf="lang == 'ar'" class="text-center">{{medan.MEMEBR_ROL_AR}}</td>
+                      <td class="text-center">{{medan.EMPLOYEE_EMAIL}}</td>
+                      <td class="text-center">{{medan.PHONE}}</td>
+                      <td>
+                        <button nz-button nzType="danger" nz-popconfirm
+                          nzTitle="{{'ARE_YOU_SURE_TO_DELETE_THIS_COMMITEE_MEMBER_?' | translate }}"
+                          (nzOnConfirm)="deleteCommiteMembers(medan.COMMITTEE_MEMBERS_ID)">{{"REMOVE" | translate }}</button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+              </nz-table>
+            </nz-tab>
+          </nz-tabset>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-10">
+          <div class="float-right">
+            <button nz-button [nzType]="'primary'" [nzLoading]="uploadingPre"
+              (click)="saveMeeting()" [disabled]="meetingMembersDisplay"
+              style="margin-top: 16px">
+              {{ uploadingPre ? 'uploading' : "Save_Meeting" | translate}}
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" nz-button (click)="cancel()">{{"CANCEL" | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

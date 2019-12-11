@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-header">
+        <div class="utils__title">
+            <div><strong>{{"MY_ISSUES" | translate }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <app-my-issues-form [EMPLOYEE_ID]="EMPLOYEE_ID" (onSubmit)="addNewIssue($event)">
+        </app-my-issues-form>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,88 @@
+<div class="card">
+  <div class="card-header">
+    <div class="utils__title">
+      <strong>{{"MY_ISSUES" | translate }}</strong>
+      <button class="float-right" nzType="primary" nz-button [routerLink]="['add']"><i nz-icon nzType="plus"
+          nzTheme="outline"></i>{{"NEW" | translate }}</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="partition">
+          <div class="partitionHead">
+            <span class="partitionName">{{"SEARCH" | translate }}</span>
+          </div>
+          <div class="input-group">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder="{{'INPUT_SEARCH_TEXT' | translate }}" (change)="searchItems()"
+                [(ngModel)]="searchText">
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon type="search"></i>
+            </ng-template>
+          </div>
+          <br />
+        </div>
+        <nz-table nzBordered #itemsDataTable [nzData]="myIssuesModelService.displayData" class="utils__scrollTable"
+          nzShowSizeChanger nzShowTotal [nzLoading]="isDataLoading">
+          <thead (nzSortChange)="sortData($event)" nzSingleSort>
+            <tr>
+              <th nzShowSort nzSortKey="ISSUE_ID" class="text-center" nzLeft="0px"><i nz-icon nzType="idcard"
+                  nzTheme="outline"></i>{{"ID" | translate }}</th>
+              <th class="text-center" nzShowSort nzSortKey="ISSUE_TITLE"><i nz-icon nzType="project"
+                  nzTheme="outline"></i>{{"TITLE" | translate }}</th>
+              <th class="text-center" nzShowSort nzSortKey="PROJECT_ID"><i nz-icon nzType="project"
+                  nzTheme="outline"></i>{{"PROJECT" | translate }}</th>
+              <th class="text-center" nzShowSort nzSortKey="CREATED_BY"><i nz-icon nzType="user" nzTheme="outline"></i>
+                Created By</th>
+              <th class="text-center" nzShowSort nzSortKey="ASSIGN_TO"><i nz-icon nzType="user" nzTheme="outline"></i>
+                Assign to</th>
+              <th class="text-center" nzShowSort nzSortKey="CREATION_DATE"><i nz-icon nzType="calendar"
+                  nzTheme="outline"></i>{{"CREATION_DATE" | translate }}</th>
+              <th class="text-center" nzShowSort nzSortKey="ISSUE_STATE">
+                <nz-switch nzSize="small" nzDisabled></nz-switch> Status
+              </th>
+              <th class="text-center" nzShowSort nzSortKey="CLASSIFICATION">{{"CLASSIFICATION" | translate }}</th>
+              <th class="text-center" nzShowSort nzSortKey="CREATED_WO">{{"CREATE_WORK_ORDER_FROM_ISSUE" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-template ngFor let-item [ngForOf]="itemsDataTable.data">
+              <tr>
+                <td class="text-center">{{item.ISSUE_ID}}</td>
+                <td class="text-center"><a [routerLink]="[item.ISSUE_ID,'details']">{{item.ISSUE_TITLE}}</a></td>
+                <td *ngIf="lang == 'en'" class="text-center">{{item.PROJECT_PRIMARYNAME}}</td>
+                <td *ngIf="lang == 'ar'" class="text-center">{{item.PROJECT_SECONDARYNAME}}</td>
+                <td *ngIf="lang == 'en'" class="text-center">{{item.CREATED_BY_EMP_NAME_EN}}</td>
+                <td *ngIf="lang == 'ar'" class="text-center">{{item.CREATED_BY_EMP_NAME_AR}}</td>
+                <td *ngIf="lang == 'en'" class="text-center">{{item.ASSIGN_TO_EMP_NAME_EN}}</td>
+                <td *ngIf="lang == 'ar'" class="text-center">{{item.ASSIGN_TO_EMP_NAME_AR}}</td>
+                <td class="text-center">{{item.CREATION_DATE | date}}</td>
+                <td class="text-center"><span *ngIf="item.READ_STATUS === 1">
+                    New
+                  </span>
+                  <span *ngIf="item.READ_STATUS === 8">
+                    Closed
+                  </span>
+                  <span *ngIf="item.READ_STATUS === 16">
+                    Resolved
+                  </span>
+                </td>
+                <td class="text-center">{{item.CLASSIFICATION}}</td>
+                <td class="text-center"><span *ngIf="item.CREATED_WO === 5">
+                    <button nz-button nzType="primary">{{"CREATE_WO" | translate }}</button>
+                  </span></td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,114 @@
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()" [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+
+  <div class="float-right">
+    <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon
+        nzType="download"></i>
+      <!-- {{"EXPORT_TO_EXCEL" | translate}} -->
+    </button>
+    <br><br>
+  </div>
+
+</div>
+
+<div class="example-container mat-elevation-z8 ">
+  <nz-table #OldMeetings [nzData]="oldMeetingModelService.displayData" class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+    <thead nzSingleSort>
+      <thead>
+        <tr>
+
+          <th class="text-center" nzLeft="0px">{{"DESCRIPTON" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"COMMITTEE" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"MEMBERS" | translate }}</th>
+          <th *ngIf="isManager" class="text-center" nzLeft="0px">{{"APPROVE" | translate }}</th>
+          <th *ngIf="isManager" class="text-center" nzLeft="0px">{{"COMMENTS" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"DATE" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"START" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"END" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"STATUS" | translate }}</th>
+          <th class="text-center" nzLeft="0px">{{"VIEW" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template ngFor let-medan [ngForOf]="OldMeetings.data">
+          <tr>
+
+            <td class="text-center">{{medan.MEETING_DESCRIPTION}}</td>
+            <td *ngIf="lang == 'en'" class="text-center">{{medan.COMMITTEE_NAME_EN}}</td>
+            <td *ngIf="lang == 'ar'" class="text-center">{{medan.COMMITTEE_NAME_AR}}</td>
+            <td class="text-center">{{medan.MEMBERS_COUNT | translatenumber}}</td>
+            <td *ngIf="isManager" class="text-center">{{medan.APPROVE | translatenumber}}</td>
+            <td *ngIf="isManager" class="text-center">{{medan.COMMENT_COUNT | translatenumber}}</td>
+            <td class="text-center">{{medan.MEETING_DATE | date}}</td>
+            <td class="text-center">{{medan.START_TIME_STR}}</td>
+            <td class="text-center">{{medan.END_TIME_STR}}</td>
+            <td class="text-center">
+              <span *ngIf="medan.STATUS === 1">
+              Confirmed
+            </span>
+              <span *ngIf="medan.STATUS === 4">
+              Closed
+            </span>
+            </td>
+
+            <td class="text-center" [routerLink]="['meeting',medan.MEETING_ID,'viewmeeting']"><i style="cursor:pointer" nz-icon nzType="eye" nzTheme="outline"></i></td>
+
+          </tr>
+        </ng-template>
+      </tbody>
+  </nz-table>
+</div>
+<div class="example-container mat-elevation-z8 " #TABLE style="display:none">
+  <table>
+
+    <thead>
+      <tr>
+
+        <th class="text-center" nzLeft="0px">{{"DESCRIPTON" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"COMMITTEE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBERS" | translate }}</th>
+        <th *ngIf="isManager" class="text-center" nzLeft="0px">{{"APPROVE" | translate }}</th>
+        <th *ngIf="isManager" class="text-center" nzLeft="0px">{{"COMMENTS" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"DATE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"START" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"END" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"STATUS" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"VIEW" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let medan of oldMeetingModelService.displayData" #table>
+
+        <td class="text-center">{{medan.MEETING_DESCRIPTION}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{medan.COMMITTEE_NAME_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{medan.COMMITTEE_NAME_AR}}</td>
+        <td class="text-center">{{medan.MEMBERS_COUNT | translatenumber}}</td>
+        <td *ngIf="isManager" class="text-center">{{medan.APPROVE | translatenumber}}</td>
+        <td *ngIf="isManager" class="text-center">{{medan.COMMENT_COUNT | translatenumber}}</td>
+        <td class="text-center">{{medan.MEETING_DATE | date}}</td>
+        <td class="text-center">{{medan.START_TIME_STR}}</td>
+        <td class="text-center">{{medan.END_TIME_STR}}</td>
+        <td class="text-center">
+          <span *ngIf="medan.STATUS === 1">
+            Confirmed
+          </span>
+          <span *ngIf="medan.STATUS === 4">
+            Closed
+          </span>
+        </td>
+
+        <td class="text-center" [routerLink]="['meeting',medan.MEETING_ID,'viewmeeting']"><i style="cursor:pointer" nz-icon nzType="eye" nzTheme="outline"></i></td>
+
+      </tr>
+
+    </tbody>
+  </table>
+</div>

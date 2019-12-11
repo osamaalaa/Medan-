@@ -1,0 +1,140 @@
+<div class="card">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="workPermissionsReportForm" (ngSubmit)="submitForm()" role="form">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-2">
+              <nz-form-control>
+                <h4><b>{{"SEARCH_CRITERIA" | translate }}</b></h4>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'LOCATION' | translate }}" formControlName="p_location_id">
+                  <nz-option *ngFor="let medan of allLocations"
+                    [nzValue]="{ id: medan.LOCATION_ID, enName: medan.LABEL_EN, arName: medan.LABEL_AR }"
+                    [nzLabel]="lang == 'ar' ? medan.LABEL_AR : medan.LABEL_EN">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'STATUS' | translate }}" formControlName="p_status_id">
+                  <nz-option *ngFor="let medan of allStatus"
+                    [nzValue]="{ id: medan.STATUS_ID, enName: medan.STATUS_EN, arName: medan.STATUS_AR }"
+                    [nzLabel]="lang == 'ar' ? medan.STATUS_AR : medan.STATUS_EN">
+                  </nz-option>
+                </nz-select>
+
+              </nz-form-control>
+            </div>
+
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" class="mr-2">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="card-body">
+    <div class="input-group" style="padding-bottom: 11px;">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+          [(ngModel)]="searchText">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+
+    <div class="float-right">
+      <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon
+          nzType="download"></i>
+      </button>
+    </div>
+    <br><br>
+
+    <div>
+      <nz-table nzBordered #workPermissionDataTable [nzData]="workPermissionsModelService.displayData"
+        class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+        <thead (nzSortChange)="sortData($event)" nzSingleSort>
+          <tr>
+            <th class="text-center" nzShowSort nzSortKey="WORK_DESCRIPTION">{{"PERMISSION_NAME" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="PERMISSION_DETAIL_TYPE_EN">
+              {{"PERMISSION_TYPE" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="EQUIBMENT_NAME">{{"POSITION - EQUIPMENT" | translate }}
+            </th>
+            <th class="text-center" nzShowSort nzSortKey="PERMISSION_START_DATE">{{"FROM_DATE" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="PERMISSION_END_DATE">{{"TO_DATE" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="STATUS_EN">{{"STATUS" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="DESCRIPTION">{{"DESCRIPTION" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="workPermissionDataTable.data">
+            <tr>
+              <td class="text-center">{{data.WORK_DESCRIPTION}}</td>
+              <td class="text-center">{{data.PERMISSION_DETAIL_TYPE_EN}}</td>
+              <td *ngIf="data.PERMISSION_DETAIL_TYPE_EN === 'Employee Permission' && lang == 'en'" class="text-center">
+                {{data.POSITION_ENGLISH_NAME}}</td>
+              <td *ngIf="data.PERMISSION_DETAIL_TYPE_EN === 'Employee Permission' && lang == 'ar'" class="text-center">
+                {{data.POSITION_ARABIC_NAME}}</td>
+              <td *ngIf="data.PERMISSION_DETAIL_TYPE_EN === 'Equibment Permission'" class="text-center">
+                {{data.EQUIBMENT_NAME}}</td>
+              <td class="text-center">{{data.PERMISSION_START_DATE | date}}</td>
+              <td class="text-center">{{data.PERMISSION_END_DATE  | date}}</td>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.STATUS_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.STATUS_AR}}</td>
+              <td class="text-center">{{data.DESCRIPTION}}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<div #TABLE #table style="display: none">
+  <table>
+    <thead (nzSortChange)="sortData($event)" nzSingleSort>
+      <tr>
+        <th class="text-center" nzShowSort nzSortKey="WORK_DESCRIPTION">{{"PERMISSION_NAME" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="PERMISSION_DETAIL_TYPE_EN">
+          {{"PERMISSION_TYPE" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="EQUIBMENT_NAME">{{"POSITION - EQUIPMENT" | translate }}
+        </th>
+        <th class="text-center" nzShowSort nzSortKey="PERMISSION_START_DATE">{{"FROM_DATE" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="PERMISSION_END_DATE">{{"TO_DATE" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="STATUS_EN">{{"STATUS" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="DESCRIPTION">{{"DESCRIPTION" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of workPermissionsModelService.displayData">
+        <td class="text-center">{{data.WORK_DESCRIPTION}}</td>
+        <td class="text-center">{{data.PERMISSION_DETAIL_TYPE_EN}}</td>
+        <td *ngIf="data.PERMISSION_DETAIL_TYPE_EN === 'Employee Permission' && lang == 'en'" class="text-center">
+          {{data.POSITION_ENGLISH_NAME}}</td>
+        <td *ngIf="data.PERMISSION_DETAIL_TYPE_EN === 'Employee Permission' && lang == 'ar'" class="text-center">
+          {{data.POSITION_ARABIC_NAME}}</td>
+        <td *ngIf="data.PERMISSION_DETAIL_TYPE_EN === 'Equibment Permission'" class="text-center">
+          {{data.EQUIBMENT_NAME}}</td>
+        <td class="text-center">{{data.PERMISSION_START_DATE | date}}</td>
+        <td class="text-center">{{data.PERMISSION_END_DATE  | date}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.STATUS_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.STATUS_AR}}</td>
+        <td class="text-center">{{data.DESCRIPTION}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

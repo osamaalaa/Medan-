@@ -1,0 +1,65 @@
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()" [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+  <div class="float-right">
+    <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon nzType="download"></i>
+      <!-- {{"EXPORT_TO_EXCEL" | translate}} -->
+    </button>
+    <br><br>
+  </div>
+</div>
+<nz-table #DataTable [nzData]="activeMeetingModelService.displayData" class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+  <thead nzSingleSort>
+    <thead>
+      <tr>
+
+        <th class="text-center" nzLeft="0px">{{"DESCRIPION" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"COMMITTEE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBERS" | translate }}</th>
+        <th *ngIf="isManager" class="text-center" nzLeft="0px">{{"APPROVE" | translate }}</th>
+        <th *ngIf="isManager" class="text-center" nzLeft="0px">{{"COMMENTS" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"DATE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"START" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"END" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"STATUS" | translate }}</th>
+        <th class="text-center" nzleft="0px">{{"SCREEN_SHARE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"VIEW" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-medan [ngForOf]="DataTable.data">
+        <tr>
+
+          <td class="text-center">
+            <span *ngIf="!isManager">{{medan.MEETING_DESCRIPTION}}</span>
+            <a *ngIf="isManager" [routerLink]="['meeting',medan.MEETING_ID,'details']" style="color:#26B99A;">{{medan.MEETING_DESCRIPTION}}</a>
+          </td>
+          <td *ngIf="lang == 'en'" class="text-center">{{medan.COMMITTEE_NAME_EN}}</td>
+          <td *ngIf="lang == 'ar'" class="text-center">{{medan.COMMITTEE_NAME_AR}}</td>
+          <td class="text-center">{{medan.MEMBERS_COUNT | translatenumber}}</td>
+          <td *ngIf="isManager" class="text-center">{{medan.APPROVE | translatenumber}}</td>
+          <td *ngIf="isManager" class="text-center">{{medan.COMMENT_COUNT | translatenumber}}</td>
+          <td class="text-center">{{medan.MEETING_DATE | date}}</td>
+          <td class="text-center">{{medan.START_TIME_STR}}</td>
+          <td class="text-center">{{medan.END_TIME_STR}}</td>
+          <td class="text-center">
+            <span *ngIf="medan.STATUS === 1">
+            <i nz-icon nzType="check" nzTheme="outline"></i>
+          </span>
+          </td>
+          <td class="text-center">
+            <button *ngIf="medan.ACTIVE_SHARING == 0" type="button" nz-button nzType="primary" [disabled]="true">{{"JOIN" | translate }}</button>
+            <button *ngIf="medan.ACTIVE_SHARING == 1" type="button" nz-button nzType="primary" [routerLink]="['meeting',medan.MEETING_ID,'viewmeeting','screensharing']" [queryParams]="{join:'true' }">{{"JOIN" | translate }}</button>
+          </td>
+          <td class="text-center" [routerLink]="['meeting',medan.MEETING_ID,'viewmeeting']"><i style="cursor:pointer; color:#26B99A" nz-icon nzType="eye" nzTheme="outline"></i></td>
+
+        </tr>
+      </ng-template>
+    </tbody>
+</nz-table>

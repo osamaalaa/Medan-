@@ -1,0 +1,55 @@
+<nz-spin nzTip="Loading..." *ngIf="isDataLoading"></nz-spin>
+<div class="card" *ngIf="!isDataLoading">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="equipmentCountReportForm" (ngSubmit)="submitForm()" role="form">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-2">
+              <nz-form-control>
+                <h4><b>Search Criteria</b></h4>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'LOCATION' | translate }}" formControlName="p_loc_id">
+                  <nz-option *ngFor="let medan of locationList" [nzValue]="medan.LOCATION_ID"
+                    [nzLabel]="lang == 'ar' ? medan.LABEL_AR : medan.LABEL_EN">
+                  </nz-option>
+                </nz-select>
+
+              </nz-form-control>
+            </div>
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  nzPlaceHolder="{{'TEMPLATE' | translate }}" formControlName="p_template_id">
+                  <nz-option *ngFor="let medan of templateList" [nzValue]="medan.TEMPLATE_ID"
+                    [nzLabel]="lang == 'ar' ? medan.TEMPLATE_NAME_AR : medan.TEMPLATE_NAME_EN">
+                  </nz-option>
+                </nz-select>
+
+              </nz-form-control>
+            </div>
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" class="mr-2"
+                [disabled]="equipmentCountReportForm.untouched">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <hr>
+
+  <div class="card-body" *ngIf="displayTable">
+
+    <h4><b> {{"Equipment_Count" | translate }}: </b>{{equipmentCount}}</h4>
+  </div>
+
+</div>

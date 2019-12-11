@@ -1,0 +1,139 @@
+<div class="card-bg-color">
+    <nz-card [nzBordered]="false" nzTitle="{{'WORK_ODER_REPORT' | translate }}" [nzExtra]="extraTemplate">
+      <form nz-form [formGroup]="createWorkorderForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-label [nzSm]="2" [nzXs]="24" nzFor="START_DATE"><span class="red-color">*</span>{{"START_DATE" | translate }}</nz-form-label>
+            <nz-form-control [nzSm]="6" [nzXs]="24">
+              <nz-date-picker  formControlName="START_DATE">
+              </nz-date-picker>
+            </nz-form-control>
+            <nz-form-label [nzSm]="2" [nzXs]="24" nzFor="END_DATE"><span class="red-color">*</span>{{"END_DATE" | translate }}</nz-form-label>
+            <nz-form-control [nzSm]="8" [nzXs]="24">
+              <nz-date-picker  formControlName="END_DATE">
+              </nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="Project_Name" ><span class="red-color">*</span>{{"PROJECT_NAME" | translate }}</nz-form-label>
+                <nz-form-control [nzSm]="8" [nzXs]="24">
+                  <nz-select nzShowSearch  style="width: 100%; display: block;" formControlName="Project_Name">
+                    <nz-option nzValue="committee" nzLabel="Committee"></nz-option>
+                    <nz-option nzValue="work order" nzLabel="Work Order"></nz-option>
+                    <nz-option nzValue="milestone" nzLabel="Milestone"></nz-option>
+                  </nz-select>
+                  <div *ngFor="let validation of validation_messages.Project_Name">
+                      <nz-form-explain class="red-color"
+                        *ngIf="Project_Name.hasError(validation.type) && (Project_Name.dirty || Project_Name.touched)">
+                        {{validation.message | translatecui}}
+                      </nz-form-explain>
+                    </div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                  <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="BOQ_Description">{{"BOQ_DESCRIPTION" | translate }}</nz-form-label>
+                  <nz-form-control [nzSm]="8" [nzXs]="24">
+                    <nz-select nzShowSearch  style="width: 100%; display: block;" formControlName="BOQ_Description">
+                      <nz-option nzValue="committee" nzLabel="Committee"></nz-option>
+                      <nz-option nzValue="work order" nzLabel="Work Order"></nz-option>
+                      <nz-option nzValue="milestone" nzLabel="Milestone"></nz-option>
+                    </nz-select>
+                    <div *ngFor="let validation of validation_messages.BOQ_Description">
+                        <nz-form-explain class="red-color"
+                          *ngIf="BOQ_Description.hasError(validation.type) && (BOQ_Description.dirty || BOQ_Description.touched)">
+                          {{validation.message | translatecui}}
+                        </nz-form-explain>
+                      </div>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="Milestone_Name">{{"MILESTONE_NAME" | translate }}</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="24">
+                      <nz-select nzShowSearch  style="width: 100%; display: block;" formControlName="Milestone_Name">
+                        <nz-option nzValue="committee" nzLabel="Committee"></nz-option>
+                        <nz-option nzValue="work order" nzLabel="Work Order"></nz-option>
+                        <nz-option nzValue="milestone" nzLabel="Milestone"></nz-option>
+                      </nz-select>
+                      <div *ngFor="let validation of validation_messages.Milestone_Name">
+                          <nz-form-explain class="red-color"
+                            *ngIf="Milestone_Name.hasError(validation.type) && (Milestone_Name.dirty || Milestone_Name.touched)">
+                            {{validation.message | translatecui}}
+                          </nz-form-explain>
+                        </div>
+                    </nz-form-control>
+                  </nz-form-item>
+
+                  <nz-form-item>
+                      <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="Member_Name">{{"MEMBER_NAME" | translate }}</nz-form-label>
+                      <nz-form-control [nzSm]="8" [nzXs]="24">
+                        <nz-select nzShowSearch  style="width: 100%; display: block;" formControlName="Member_Name">
+                          <nz-option nzValue="committee" nzLabel="Committee"></nz-option>
+                          <nz-option nzValue="work order" nzLabel="Work Order"></nz-option>
+                          <nz-option nzValue="milestone" nzLabel="Milestone"></nz-option>
+                        </nz-select>
+                        <div *ngFor="let validation of validation_messages.Member_Name">
+                            <nz-form-explain class="red-color"
+                              *ngIf="Member_Name.hasError(validation.type) && (Member_Name.dirty || Member_Name.touched)">
+                              {{validation.message | translatecui}}
+                            </nz-form-explain>
+                          </div>
+                      </nz-form-control>
+                    </nz-form-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ng-template #extraTemplate>
+          <button  nz-button (click)="submitForm()" class="fa-plus-circle btn btn-success af_link p_AFTextOnly mr-1"><i nz-icon
+              nzType="save"></i>{{"WORK_ODER_REPORT" | translate }}</button>
+          <span> </span>
+          <button nz-button class="fa-plus-circle btn btn-success af_link p_AFTextOnly" >  <i style="cursor: pointer" nz-icon type="search"></i>{{"SHOW_DATA" | translate }}</button>
+        </ng-template>
+      </form>
+      <hr>
+      <nz-table nzBordered class="utils__scrollTable"
+      nzShowSizeChanger nzShowTotal>
+      <thead  nzSingleSort>
+        <tr>
+          <th nzWidth="40%"  class="text-center" nzLeft="0px">{{"WO_DESCRIPTION" | translate }}</th>
+
+          <th rowspan="2"  class="text-center">{{"WO_START_DATE" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"WO_END_DATE" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"DURATION" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"ACTUAL_START_DATE" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"ACTUAL_END_DATE" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"ACTUAL_DURATION" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"MILESTONE" | translate }}</th>
+          <th rowspan="2"  class="text-center">{{"EMPLOYEE" | translate }}</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <!-- <td class="text-center">{{ data.ISSUE_ID }}</td>
+          <td class="text-center">{{ data.ISSUE_TITLE }}</td>
+          <td class="text-center">{{ data.PROJECT_ID }}</td>
+          <td class="text-center">{{ data.CREATED_WO }}</td>
+          <td class="text-center">{{ data.ASSIGN_TO }}</td>
+          <td class="text-center">{{ data.CREATION_DATE | date }}</td>
+          <td class="text-center">{{ data.READ_STATUS }}</td>
+          <td class="text-center">{{ data.CLASSIFICATION }}</td>
+          <td class="text-center">{{ data.createworkorderfromissue }}</td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+    </nz-card>
+
+  </div>
+
+
+

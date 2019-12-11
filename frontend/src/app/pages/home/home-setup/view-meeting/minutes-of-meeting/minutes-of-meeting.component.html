@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-6 embed-pdf">
+    <nz-empty *ngIf="!momAttachFormat"></nz-empty>
+    <div *ngIf="momAttachFormat === 'pdf';else imageFormat">
+      <nz-affix>
+        <nz-pagination [nzPageSize]="1" [(nzPageIndex)]="pageMom" [nzTotal]="totalPagesMom" [nzSize]="'small'">
+        </nz-pagination>
+      </nz-affix>
+      <pdf-viewer [original-size]="true" [fit-to-page]="true" [src]="momAttachment"
+        style="display: block; border: solid black" class="embed-pdf-img" [show-all]="false" [page]="pageMom"
+        [original-size]="false" (after-load-complete)="afterLoadCompleteMom($event)">
+      </pdf-viewer>
+    </div>
+    <ng-template #imageFormat>
+        <img [src]="momAttachment" class="embed-pdf-img">
+    </ng-template>
+    <!-- <div *ngIf="momAttachFormat === 'jpeg' || 'png' || !'pdf'">
+      <img [src]="momAttachment" class="embed-pdf-img">
+    </div> -->
+  </div>
+  <div class="col-md-6 div-flex">
+    <div class="row">
+      <h4><b> <span *ngIf="momCommentsLength">{{momCommentsLength}}</span>&nbsp;<span
+            *ngIf="momCommentsLength">{{"COMMENTS" | translate }}</span></b></h4>
+      <!-- ........... -->
+      <div class="mx-auto text-right">
+        <button [disabled]="!momAttachment" *ngIf="!showApproveButton" nz-button nzType="primary"
+          (click)="approve()">{{"APPROVE" | translate }}</button>
+        <button *ngIf="showApproveButton" [disabled]="true" nz-button nzType="primary">{{"APPROVED" | translate }}</button>
+      </div>
+    </div>
+
+    <nz-list *ngIf="momComments.length" [nzDataSource]="momComments" [nzRenderItem]="momComment"
+      [nzItemLayout]="'horizontal'">
+      <ng-template #momComment let-momComment>
+        <nz-comment [nzAuthor]="momComment.FIRST_NAME_EN + ' ' + momComment.SECOND_NAME_EN"
+          [nzDatetime]="momComment.CREATION_DATE | date:'medium'">
+          <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="momComment.avatar"></nz-avatar>
+          <nz-comment-content>
+            <p>{{ momComment.USER_COMMENTS }}</p>
+          </nz-comment-content>
+        </nz-comment>
+      </ng-template>
+    </nz-list>
+    <nz-comment>
+    </nz-comment>
+    <!-- ............ -->
+    <div class="div2">
+      <div>
+        <textarea [disabled]="!momAttachment" style="width: 85%" rows="2" nz-input
+          [(ngModel)]="inputValueMom"></textarea>
+        <button *ngIf="!showSendButton" style="margin: 10px" (click)="momSendComment()" nz-button nzType="primary"
+          [disabled]="!momAttachment  || !inputValueMom" class="float-right">{{"SEND" | translate }}</button>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+
+
+

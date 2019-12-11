@@ -1,0 +1,44 @@
+<div *ngIf="isManager" class="float-right">
+  <button class="mr-1" nzType="primary" nz-button [routerLink]="['addMeeting']">{{"ADD_NEW_MEETING" | translate}}</button>
+</div>
+<br>
+<br>
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+      [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+</div>
+<nz-table #ActMeetings [nzData]="activeMeetingsModelService.displayData" class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+  <thead nzSingleSort>
+    <thead>
+      <tr>
+
+        <th class="text-center" nzLeft="0px">{{"MEEETING_DESCRIPTION" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"DATE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"START" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"END" | translate }}</th>
+
+      </tr>
+    </thead>
+  <tbody>
+    <ng-template ngFor let-medan [ngForOf]="ActMeetings.data">
+      <tr>
+
+        <td class="text-center">{{medan.MEETING_DESC}}</td>
+        <td class="text-center">{{medan.MEETING_DATE | date}}</td>
+        <td class="text-center">{{medan.START_TIME_STR}}</td>
+        <td class="text-center">{{medan.END_TIME_STR}}</td>
+
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+
+
+

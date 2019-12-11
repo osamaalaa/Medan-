@@ -1,0 +1,55 @@
+<div class="block login-form">
+  <div class="row">
+
+    <div class="col-xl-12">
+      <div class="inner">
+        <!--div class="title login-heading">
+          <a href="javascript: void(0);" class="logo">
+            
+          </a>
+        </div-->
+        <div class="form">
+          <h4 class="">{{"LOG_IN" | translate }}</h4>
+          <br />
+          <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="submitForm()" role="form">
+            <nz-form-item>
+              <nz-form-label nzFor="email">{{"USER_NAME" | translate }}</nz-form-label>
+              <nz-form-control>
+                <nz-input-group [nzPrefix]="prefixUser">
+                  <input placeholder="{{'USERNAME' | translate }}" nz-input id="email" formControlName="email">
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="password">{{"PASSWORD" | translate }}</nz-form-label>
+              <nz-form-control>
+                <nz-input-group [nzPrefix]="prefixLock">
+                  <input placeholder="{{'PASSWORD' | translate }}" type="password" nz-input id="password"
+                    formControlName="password">
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <div>
+              <label nz-checkbox>
+                {{"REMEMBER-ME" | translate }}
+              </label>
+              <!-- <a href routerLink="/user/forgot" class="login-form-forgot pull-right utils__link--blue utils__link--underlined">{{"FORGOT_PASSWORD" | translate }}</a> -->
+            </div>
+            <div class="form-actions">
+              <!-- <button nz-button nzType="primary" class="width-150 mr-3">Sign in</button> -->
+              <button nz-button nzType="primary" class="width-150 mr-3"> {{"SIGN-IN" | translate }}</button>
+              <!-- <span class="register-link">
+                <a href="javascript: void(0);" class="utils__link--blue utils__link--underlined">{{"REGISTER" | translate }}</a>
+                if you don&#39;t have an account
+              </span> -->
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>

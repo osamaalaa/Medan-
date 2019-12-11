@@ -1,0 +1,189 @@
+<form nz-form nzLayout="'vertical'" [formGroup]="incidentReportForm" (ngSubmit)="submitForm()" role="form">
+
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="PROJECT_ID ">{{"PROJECT" | translate }}<span class="red-color">*</span></nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%; display: block;" nzPlaceHolder="{{'CHOOSE_PROJECT' | translate }}"
+            formControlName="PROJECT_ID">
+            <nz-option *ngFor="let medan of allProjects" [nzValue]="medan.PROJECT_ID"
+              [nzLabel]="lang == 'ar' ? medan.PRIMARY_NAME : medan.SECONDARY_NAME">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="INCIDENT_TITLE">{{"INCIDENT_TITLE" | translate }}<span class="red-color">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input name="INCIDENT_TITLE" type="text" placeholder="{{'INCIDENT_TITLE' | translate }}"
+            formControlName="INCIDENT_TITLE">
+          <div *ngFor="let validation of validation_messages.INCIDENT_TITLE">
+            <nz-form-explain class="red-color"
+              *ngIf="INCIDENT_TITLE.hasError(validation.type) && (INCIDENT_TITLE.dirty || INCIDENT_TITLE.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="TICKET_NUMBER">{{"TICKET_NUMBER" | translate }}<span class="red-color">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input name="TICKET_NUMBER" type="number" placeholder="{{'TICKET_NUMBER' | translate }}"
+            formControlName="TICKET_NUMBER">
+          <div *ngFor="let validation of validation_messages.TICKET_NUMBER">
+            <nz-form-explain class="red-color"
+              *ngIf="TICKET_NUMBER.hasError(validation.type) && (TICKET_NUMBER.dirty || TICKET_NUMBER.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="row">
+        <div class="col-lg-4">
+          <nz-form-item>
+            <nz-form-label nzFor="INCIDENT_START_DATE">{{"START_DATE" | translate }}</nz-form-label>
+            <nz-form-control>
+              <cui-datepicker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'START_DATE' | translate }}"
+                formControlName="INCIDENT_START_DATE">
+              </cui-datepicker>
+              <div *ngFor="let validation of validation_messages.INCIDENT_START_DATE">
+                <nz-form-explain class="red-color"
+                  *ngIf="INCIDENT_START_DATE.hasError(validation.type) && (INCIDENT_START_DATE.dirty || INCIDENT_START_DATE.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-lg-4">
+          <nz-form-item>
+            <nz-form-label nzFor="INCIDENT_END_DATE">{{"END_DATE" | translate }}</nz-form-label>
+            <nz-form-control>
+              <cui-datepicker nzFormat="dd-MMM-yyyy" nzPlaceHolder="{{'END_DATE' | translate }}"
+                formControlName="INCIDENT_END_DATE">
+              </cui-datepicker>
+              <div *ngFor="let validation of validation_messages.INCIDENT_END_DATE">
+                <nz-form-explain class="red-color"
+                  *ngIf="INCIDENT_END_DATE.hasError(validation.type) && (INCIDENT_END_DATE.dirty || INCIDENT_END_DATE.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-lg-4">
+          <nz-form-item>
+            <nz-form-label nzFor="INCIDENT_TOTAL_DURATION">{{"DURATION" | translate }}</nz-form-label>
+            <nz-form-control>
+              <input nz-input name="INCIDENT_TOTAL_DURATION" type="number" placeholder="{{'DURATION' | translate }}"
+                formControlName="INCIDENT_TOTAL_DURATION">
+              <div *ngFor="let validation of validation_messages.INCIDENT_TOTAL_DURATION">
+                <nz-form-explain class="red-color"
+                  *ngIf="INCIDENT_TOTAL_DURATION.hasError(validation.type) && (INCIDENT_TOTAL_DURATION.dirty || INCIDENT_TOTAL_DURATION.touched)">
+                  {{validation.message | translatecui}}
+                </nz-form-explain>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="INCIDENT_DESCRIPTION">{{"DESCRIPTION" | translate }}<span class="red-color">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <textarea maxlength="1024" rows="2" nz-input formControlName="INCIDENT_DESCRIPTION"
+            placeholder="{{'DESCRIPTION' | translate }}"></textarea>
+          <div *ngFor="let validation of validation_messages.INCIDENT_DESCRIPTION">
+            <nz-form-explain class="red-color"
+              *ngIf="INCIDENT_DESCRIPTION.hasError(validation.type) && (INCIDENT_DESCRIPTION.dirty || INCIDENT_DESCRIPTION.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="CORRECTIVE_ACTIONS">{{"CORRECTIVE_ACTIONS" | translate }}<span class="red-color">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <textarea maxlength="1024" rows="2" nz-input formControlName="CORRECTIVE_ACTIONS"
+            placeholder="{{'CORRECTIVE_ACTIONS' | translate }}"></textarea>
+          <div *ngFor="let validation of validation_messages.CORRECTIVE_ACTIONS">
+            <nz-form-explain class="red-color"
+              *ngIf="CORRECTIVE_ACTIONS.hasError(validation.type) && (CORRECTIVE_ACTIONS.dirty || CORRECTIVE_ACTIONS.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="PREVENTIVE_ACTIONS">{{"PREVENTIVE_ACTIONS" | translate }}<span class="red-color">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <textarea maxlength="1024" rows="2" nz-input formControlName="PREVENTIVE_ACTIONS"
+            placeholder="{{'PREVENTIVE_ACTIONS' | translate }}"></textarea>
+          <div *ngFor="let validation of validation_messages.PREVENTIVE_ACTIONS">
+            <nz-form-explain class="red-color"
+              *ngIf="PREVENTIVE_ACTIONS.hasError(validation.type) && (PREVENTIVE_ACTIONS.dirty || PREVENTIVE_ACTIONS.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="INCIDENT_BRIEF">{{"INCIDENT_BRIEF" | translate }}<span class="red-color">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <textarea maxlength="1024" rows="2" nz-input formControlName="INCIDENT_BRIEF"
+            placeholder="{{'INCIDENT_BRIEF' | translate }}"></textarea>
+          <div *ngFor="let validation of validation_messages.INCIDENT_BRIEF">
+            <nz-form-explain class="red-color"
+              *ngIf="INCIDENT_BRIEF.hasError(validation.type) && (INCIDENT_BRIEF.dirty || INCIDENT_BRIEF.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="float-right">
+        <button type="submit" nz-button nzType="primary" class="mr-2">{{"SAVE" | translate }}</button>
+        <button type="button" nz-button (click)="cancel()">{{"CANCEL" | translate }}</button>
+      </div>
+    </div>
+  </div>
+</form>

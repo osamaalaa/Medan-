@@ -1,0 +1,54 @@
+<br>
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()" [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+</div>
+<nz-table nzBordered #incidentDataTable [nzData]="incidentReportDataModelService.displayData" class="utils__scrollTable"
+  nzShowSizeChanger nzShowTotal [nzLoading]="isDataLoading">
+  <thead (nzSortChange)="sortData($event)" nzSingleSort>
+    <tr>
+    
+      <th class="text-center" nzShowSort nzSortKey="DESCRIPTION">{{"DESCRIPTION" | translate }}</th>
+      <th class="text-center" nzShowSort nzSortKey="PRIMARY_NAME">{{"PROJECT_NAME" | translate }}</th>
+      <th class="text-center" nzShowSort nzSortKey="REF_REQUEST_TYPE">{{"TYPE" | translate }}</th>
+      <th class="text-center" nzShowSort nzSortKey="CREATION_DATE">{{"CREATION_DATE" | translate }}</th>
+      <th class="text-center">{{"ACTIONS" | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="incidentDataTable.data">
+      <tr>
+     
+        <td class="text-center">{{data.DESCRIPTION}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.PRIMARY_NAME}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.SECONDARY_NAME}}</td>
+        <td class="text-center">
+            <span *ngIf="data.REF_REQUEST_TYPE === 1">
+              WorkOrder
+            </span>
+            <span *ngIf="data.REF_REQUEST_TYPE == 2">
+              Task
+            </span>
+            <span *ngIf="data.REF_REQUEST_TYPE == 5">
+              Issue 
+              </span>
+          </td>
+        <td class="text-center">{{data.CREATION_DATE | date}}</td>
+        <td class="text-center">
+
+          <button nz-button nzSize="small" nzType="primary" [routerLink]="[data.INC_REP_REQUEST_ID]"><i nz-icon
+              nzType="caret-right" nzTheme="outline"></i>{{"SEND_REPORT" | translate }}</button>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+
+
+

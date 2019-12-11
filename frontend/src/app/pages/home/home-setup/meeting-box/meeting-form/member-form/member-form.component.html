@@ -1,0 +1,27 @@
+<form nz-form nzLayout="'vertical'" [formGroup]="addCommiteeMemberReportForm" role="form">
+  <div class="row">
+    <div class="col-lg-10">
+      <nz-form-item>
+        <nz-form-label nzFor="COMMITTEE_MEMBERS_ID ">{{"EMPLOYEE" | translate }}<span class="red-color">*</span></nz-form-label>
+        <nz-form-control>
+          <nz-select  nzShowSearch nzServerSearch nzPlaceHolder="{{'PICK_COMMITTEE_MEMBER' | translate }}"
+            formControlName="COMMITTEE_MEMBERS_ID" [nzShowArrow]="false"
+            (nzOnSearch)="searchCommiteeMember($event)">
+            <nz-option *ngFor="let o of allMembers" [nzLabel]="lang == 'ar' ? o.EMPLOYEE_NAME_AR : o.EMPLOYEE_NAME_EN"  [nzValue]="o.COMMITTEE_MEMBERS_ID"></nz-option>
+
+
+          </nz-select>
+          <div *ngFor="let validation of validation_messages.COMMITTEE_MEMBERS_ID">
+            <nz-form-explain class="red-color"
+              *ngIf="COMMITTEE_MEMBERS_ID.hasError(validation.type) && (COMMITTEE_MEMBERS_ID.dirty || COMMITTEE_MEMBERS_ID.touched)">
+              {{validation.message | translatecui}}
+            </nz-form-explain>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+
+

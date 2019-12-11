@@ -1,0 +1,77 @@
+<nz-spin nzTip="Loading..." *ngIf="isDataLoading"></nz-spin>
+<div class="card" *ngIf="!isDataLoading">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="contractorInformationForm" (ngSubmit)="submitForm()" role="form">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <!-- .........................................Search criteria label.................................................. -->
+            <div class="col-lg-4">
+              <nz-form-control>
+                <h4><b>{{"SEARCH_CRITERIA" | translate }}</b></h4>
+              </nz-form-control>
+            </div>
+            <!-- ......................................supp_code........................................................... -->
+            <div class="col-lg-6">
+
+              <nz-form-control>
+                <nz-select nzShowSearch style="width: 100%; display: block;" nzPlaceHolder="{{'SUPPLIER_CODE' | translate }}"
+                  formControlName="p_supp_code">
+                  <nz-option *ngFor="let medan of supplierList" [nzValue]="medan.SUPPLIER_CODE"
+                    [nzLabel]="lang == 'ar' ? medan.AR_NAME : medan.EN_NAME">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+
+            </div>
+            <!-- .......................................buttons.................................................... -->
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" class="mr-2"
+                [disabled]="contractorInformationForm.untouched">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+            <!-- ........................................................................................... -->
+          </div>
+        </div>
+      </div>
+      <!-- ........................................................................................... -->
+
+    </form>
+  </div>
+  <hr>
+
+
+  <div class="card-body">
+    <div class="input-group" style="padding-bottom: 11px;">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+          [(ngModel)]="searchText">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+    <nz-table nzBordered #activitiesDataTable [nzData]="contractorInformationModelService.displayData"
+      class="utils__scrollTable" nzPageSize="5" [nzLoading]="isDataLoading">
+      <thead (nzSortChange)="sortData($event)" nzSingleSort>
+        <tr>
+          <th class="text-center" nzShowSort nzSortKey="EN_NAME">{{"SUPPLIER_NAME" | translate }}</th>
+          <th class="text-center" nzShowSort nzSortKey="CLASSIFICATION_EN">{{"CLASSIFICATION" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template ngFor let-data [ngForOf]="activitiesDataTable.data">
+          <tr>
+            <td *ngIf="lang == 'en'" class="text-center">{{data.EN_NAME}}</td>
+            <td *ngIf="lang == 'ar'" class="text-center">{{data.AR_NAME}}</td>
+            <td *ngIf="lang == 'en'" class="text-center">{{data.CLASSIFICATION_EN}}</td>
+            <td *ngIf="lang == 'ar'" class="text-center">{{data.CLASSIFICATION_AR}}</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

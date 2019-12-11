@@ -1,0 +1,25 @@
+<nz-tabset [nzAnimated]="false">
+  <nz-tab   nzTitle="{{'ACTIVE_MEETING' | translate }}">
+    <app-active-meeting></app-active-meeting>
+  </nz-tab>
+
+  <nz-tab  nzTitle="{{'OLD_MEETINGS' | translate }}">
+    <app-old-meetings></app-old-meetings>
+  </nz-tab>
+
+  <nz-tab  nzTitle="{{'BD_DASHBOARD' | translate }}" 
+    >
+    <app-bddashboard ></app-bddashboard>
+  </nz-tab>
+
+  <nz-tab *ngIf="isManager" [nzTitle]="'COMMITTEES' | translate">
+    <app-my-committee></app-my-committee>
+  </nz-tab>
+  <nz-tab *ngIf="isMember" [nzTitle]="'MY_COMMITTEE' | translate">
+    <app-my-committee></app-my-committee>
+  </nz-tab>
+</nz-tabset>
+
+
+
+

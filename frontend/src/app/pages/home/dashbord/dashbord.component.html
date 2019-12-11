@@ -1,0 +1,117 @@
+<div class="header1">
+
+  <div class="row">
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.APPROVAL_CNT}}><i nz-icon nzType="check-square"
+        nzTheme="outline"></i>Approve
+      <div class="f1">
+        <p class="inside">{{homeCount.APPROVAL_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.COLSSING_CNT}}><i nz-icon nzType="deployment-unit"
+        nzTheme="outline"></i>Progress
+      <div class="f2">
+        <p class="inside">{{homeCount.COLSSING_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.PROJECTS_CNT}}><i nz-icon nzType="deployment-unit"
+        nzTheme="outline"></i>Project
+      <div class="f3">
+        <p class="inside">{{homeCount.PROJECTS_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.NOT_ASSIGN_CNT}}><i nz-icon nzType="container"
+        nzTheme="outline"></i>{{"UNASSINE" | translate }}<div class="f4">
+        <p class="inside">{{homeCount.NOT_ASSIGN_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.MAILS_CNT}}><i nz-icon nzType="home"
+        nzTheme="outline"></i>{{"MY_INBOX" | translate }}<div class="f5">
+        <p class="inside">{{homeCount.MAILS_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.WISHLIST_CNT}}><i nz-icon nzType="ordered-list"
+        nzTheme="outline"></i>Wishlist
+      <div class="f6">
+        <p class="inside">{{homeCount.WISHLIST_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.MEETING_CNT}}><i nz-icon nzType="ordered-list"
+        nzTheme="outline"></i>{{"MEETING" | translate }}<div class="f7">
+        <p class="inside">{{homeCount.MEETING_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.ISSUES_CNT}}><i nz-icon nzType="flag"
+        nzTheme="outline"></i>{{"TICKETS" | translate }}<div class="f8">
+        <p class="inside">{{homeCount.ISSUES_CNT}}</p>
+      </div>
+    </div>
+    <div class="col-md-1 App" nz-tooltip nzTitle={{homeCount.INCIDENT_CNT}}><i nz-icon nzType="warning"
+        nzTheme="outline"></i>{{"INCIDENTS" | translate }}<div class="f9">
+        <p class="inside">{{homeCount.INCIDENT_CNT}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="background: #ECECEC">
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="12">
+      <nz-card style="height: 420px;">
+        <app-inprogress-workorder></app-inprogress-workorder>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-card style="height: 420px;">
+        <app-wish-list></app-wish-list>
+
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  <br>
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="12">
+      <nz-card style="height: 420px;">
+        <app-approval></app-approval>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-card style="height: 420px;">
+        <app-unassigend-task></app-unassigend-task>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  <br>
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="12">
+      <nz-card style="height: 420px;">
+        <app-open-issues></app-open-issues>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-card style="height: 420px;">
+        <app-my-inbox></app-my-inbox>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  <br>
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="8">
+      <nz-card style="height: 420px;">
+        <app-meeting-all></app-meeting-all>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <nz-card style="height: 420px;">
+        <app-open-incidents></app-open-incidents>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <nz-card style="height: 420px;">
+
+        <app-open-tickets></app-open-tickets>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</div>
+
+
+

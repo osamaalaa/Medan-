@@ -1,0 +1,20 @@
+function loginFold() {
+    // get effect type from
+    var selectedEffect = "blind";
+    // Most effect types need no options passed by default
+    var options = {
+    };
+    //    $('#lbox0').css('display', 'inline-block');
+    // Run the effect
+    $("#lg-box").toggle(selectedEffect, options, 500);
+    $("#userid\:\:content").focus();
+}
+
+function showLoginBox() {
+    $('#logPg').css('display', 'none');
+    $('#lbox0').css('opacity', '100');
+}
+
+function showLoginLink() {
+    $('#logPg').css('display', 'inline-block');
+}

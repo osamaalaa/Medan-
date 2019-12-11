@@ -1,0 +1,30 @@
+<div class="float-right">
+  <button nz-button nzType="primary" nzSize="primary" nzShape="circle" (click)="generatePDF()"><i nz-icon nzType="download"></i>
+    <!-- Export to PDF -->
+</button>
+</div>
+<br><br><br>
+<div id="content" #content style="background: #ECECEC;padding:30px;">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="7">
+      <app-survey></app-survey>
+    </div>
+    <div nz-col [nzSpan]="9">
+      <app-strategic-performance></app-strategic-performance>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <app-strategic-objective></app-strategic-objective>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="7">
+      <app-meeting-agenda></app-meeting-agenda>
+    </div>
+    <div nz-col [nzSpan]="9">
+      <app-decisions></app-decisions>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <app-term-studies></app-term-studies>
+    </div>
+  </div>
+</div>

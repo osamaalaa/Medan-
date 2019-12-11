@@ -1,0 +1,36 @@
+<!-- .................table............... -->
+<nz-table #DataTable [nzData]="meetingMembers" class="utils__scrollTable">
+  <thead>
+    <thead>
+      <tr>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_NAME" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_ROLE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_EMAIL" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_TEL" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"INVITED" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"ATTENDANCE" | translate }}</th>
+      </tr>
+    </thead>
+  <tbody>
+    <ng-template ngFor let-medan [ngForOf]="DataTable.data">
+      <tr>
+        <td *ngIf="lang == 'en'" class="text-center">{{medan.FIRST_NAME_E}} {{medan.SECOND_NAME_E}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{medan.FIRST_NAME_A}} {{medan.SECOND_NAME_A}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{medan.ROLE_NAME_EN}}</td>
+        <td *ngIf="lang == 'شق'" class="text-center">{{medan.ROLE_NAME_AR}}</td>
+        <td class="text-center">{{medan.EMAIL}}</td>
+        <td class="text-center">{{medan.MOBILE | translatenumber}}</td>
+        <td class="text-center"><label nz-checkbox nzDisabled [ngModel]="medan.INVITED_FLAG"></label></td>
+        <td class="text-center">
+          <nz-switch [nzDisabled]="!enableAttendanceAction" [(ngModel)]="medan.ATTENDANCE_FLAG" (ngModelChange)="attendance(medan.MEETING_MEMBER_ID, $event)"
+            [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
+          <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+          <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+
+
+

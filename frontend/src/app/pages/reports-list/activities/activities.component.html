@@ -1,0 +1,115 @@
+<div class="card">
+  <div class="card-header">
+    <form nz-form nzLayout="'vertical'" [formGroup]="activitiesReportForm" (ngSubmit)="submitForm()" role="form">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <!-- .........................................Search criteria label.................................................. -->
+            <div class="col-lg-2">
+              <nz-form-control>
+                <h4><b>{{"SEARCH_CRITERIA" | translate }}</b></h4>
+              </nz-form-control>
+            </div>
+            <div class="col-lg-4">
+              <nz-form-control>
+                <nz-select nzShowSearch [nzLoading]="isfetchingLookup" style="width: 100%; display: block;"
+                  [nzDropdownStyle]="{ 'max-width': '285px' }" nzPlaceHolder="{{'EMPLOYEE_NAME' | translate }}"
+                  formControlName="p_emp_code">
+                  <nz-option *ngFor="let medan of employeeList"
+                    [nzValue]="{ id: medan.EMPLOYEE_ID, enName: medan.FIRST_NAME2 + ' ' + medan.S_SECOND_NAME, arName: medan.FIRST_NAME + ' ' + medan.SECOND_NAME }"
+                    [nzLabel]="lang == 'ar' ? (medan.FIRST_NAME + ' ' + medan.SECOND_NAME) : (medan.FIRST_NAME2 + ' ' + medan.S_SECOND_NAME)">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+
+            <div class="col-lg-4">
+              <nz-form-item>
+                <nz-form-control>
+
+                  <nz-tree-select [nzNodes]="allLocations" nzShowSearch style="width: 100%; display: block;"
+                    nzPlaceHolder="{{'LOCATION' | translate }}" formControlName="p_location_id"
+                    [nzDropdownMatchSelectWidth]="true"
+                    [nzDropdownStyle]="{ 'max-height': '300px','max-width': '265px' }">
+                  </nz-tree-select>
+
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div class="col-lg-1">
+              <button type="submit" nz-button nzType="primary" class="mr-2">{{"SEARCH" | translate }}</button>
+            </div>
+            <div class="col-lg-1">
+              <button type="button" nz-button nzType="primary" (click)="reset()">{{"RESET" | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="card-body">
+    <div class="input-group" style="padding-bottom: 11px;">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+          [(ngModel)]="searchText">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+    <div class="float-right">
+      <button nz-button nzType="primary" [nzSize]="'size'" nzShape="circle" (click)="exportToExcel()"><i nz-icon
+          nzType="download"></i>
+
+      </button>
+    </div>
+    <br><br>
+
+    <div>
+      <nz-table nzBordered #activitiesDataTable [nzData]="activitiesModelService.displayData" class="utils__scrollTable"
+        nzPageSize="5" [nzLoading]="isDataLoading">
+        <thead (nzSortChange)="sortData($event)" nzSingleSort>
+          <tr>
+            <th class="text-center" nzShowSort nzSortKey="EMP_NAME_EN">{{"Employee Name" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="ACTIVITY_TITLE_EN">{{"Work Order" | translate }}</th>
+            <th class="text-center" nzShowSort nzSortKey="ACTVITY_DURATION">{{"DURATION" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="activitiesDataTable.data">
+            <tr>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.EMP_NAME_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.EMP_NAME_AR}}</td>
+              <td *ngIf="lang == 'en'" class="text-center">{{data.ACTIVITY_TITLE_EN}}</td>
+              <td *ngIf="lang == 'ar'" class="text-center">{{data.ACTIVITY_TITLE_AR}}</td>
+              <td class="text-center">{{data.ACTVITY_DURATION | translatenumber}}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<div #TABLE #table style="display: none">
+  <table>
+    <thead (nzSortChange)="sortData($event)" nzSingleSort>
+      <tr>
+        <th class="text-center" nzShowSort nzSortKey="EMP_NAME_EN">{{"Employee Name" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="ACTIVITY_TITLE_EN">{{"Work Order" | translate }}</th>
+        <th class="text-center" nzShowSort nzSortKey="ACTVITY_DURATION">{{"DURATION" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of activitiesModelService.displayData">
+        <td *ngIf="lang == 'en'" class="text-center">{{data.EMP_NAME_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.EMP_NAME_AR}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{data.ACTIVITY_TITLE_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{data.ACTIVITY_TITLE_AR}}</td>
+        <td class="text-center">{{data.ACTVITY_DURATION | translatenumber}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

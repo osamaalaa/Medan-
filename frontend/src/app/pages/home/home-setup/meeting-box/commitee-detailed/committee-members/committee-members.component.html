@@ -1,0 +1,47 @@
+<div *ngIf="isManager" class="float-right">
+  <button class="mr-1" nzType="primary" nz-button [routerLink]="['add']"> {{"ADD_MEMBERS" | translate}}</button>
+
+</div>
+<br>
+<br>
+<div nz-row>
+  <div class="input-group" style="padding-bottom: 11px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="{{'SEARCH' | translate }}" (change)="searchItems()"
+        [(ngModel)]="searchText">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+</div>
+<nz-table #DataTable [nzData]="committeeMembersModelService.displayData" class="utils__scrollTable" nzPageSize="5"
+  [nzLoading]="isDataLoading">
+  <thead nzSingleSort>
+    <thead>
+      <tr>
+        <th class="text-center" nzLeft="0px">{{"NAME" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_ROLE" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_EMAIL" | translate }}</th>
+        <th class="text-center" nzLeft="0px">{{"MEMBER_PHONE" | translate }}</th>
+        <th></th>
+      </tr>
+    </thead>
+  <tbody>
+    <ng-template ngFor let-medan [ngForOf]="DataTable.data">
+      <tr>
+        <td *ngIf="lang == 'en'" class="text-center">{{medan.EMPLOYEE_NAME_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{medan.EMPLOYEE_NAME_AR}}</td>
+        <td *ngIf="lang == 'en'" class="text-center">{{medan.MEMEBR_ROL_EN}}</td>
+        <td *ngIf="lang == 'ar'" class="text-center">{{medan.MEMEBR_ROL_AR}}</td>
+        <td class="text-center">{{medan.EMPLOYEE_EMAIL}}</td>
+        <td class="text-center">{{medan.PHONE}}</td>
+        <td *ngIf="isManager">
+          <button nz-button nzType="danger" nz-popconfirm
+            nzTitle="{{'ARE_YOU_SURE_TO_DELETE_THIS_COMMITEE_MEMBER_?' | translate }}"
+            (nzOnConfirm)="deleteCommiteMembers(medan.COMMITTEE_MEMBERS_ID)">{{"REMOVE" | translate }}</button>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

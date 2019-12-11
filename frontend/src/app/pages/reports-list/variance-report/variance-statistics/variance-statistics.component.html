@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="mb-4">
+      <b>{{ 'STATISTICS' | translate }}</b>
+    </h3>
+    <div class="row">
+      <div class="col-lg-6">
+        <div nz-col [nzSpan]="'container'">
+          <nz-card nzTitle="{{ 'LABOURS_CHART' | translate }}">
+            <app-variance-labours></app-variance-labours>
+          </nz-card>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div nz-col [nzSpan]="'container'">
+          <nz-card nzTitle="{{ 'EQUIPMENT/TOOLS_CHART' | translate }}">
+            <app-variance-tools></app-variance-tools>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div nz-col [nzSpan]="'container'">
+          <nz-card nzTitle="{{ 'MATERIALS_CHART' | translate }}">
+            <app-variance-issues></app-variance-issues>
+          </nz-card>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div nz-col [nzSpan]="'container'">
+          <nz-card nzTitle="{{ 'VIOLATIONS_CHART' | translate }}">
+            <app-variance-incidents></app-variance-incidents>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<nz-layout>
+  <nz-content>
+    <div [ngClass]="{'login': true, 'light': backgroundEnabled}" [ngStyle]="{backgroundImage: backgroundEnabled ? 'url(\'assets/images/photos/' + backgroundNumber + '.jpeg\')' : 'none'}">
+      <header class="header header-main">
+        <img *ngIf="!backgroundEnabled" class="logo_medan" src="assets/images/logo-header.png" alt="Medan">
+        <img *ngIf="backgroundEnabled" class="logo_medan" src="assets/images/logo-header.png" alt="Medan">
+
+        <span class="ml-md-auto">منصه انجاز</span>
+      </header>
+      <div class="content">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+      </div>
+      <!-- <div class="footer text-center"> -->
+      <!-- <ul class="list-unstyled list-inline mb-3">
+          <li class="list-inline-item">
+            <a href="javascript: void(0);">{{"TERMS_OF_USE" | translate }}</a>
+          </li>
+          <li class="active list-inline-item">
+            <a href="javascript: void(0);">{{"COMPLIANCE" | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="javascript: void(0);">{{"CONFIDENTIAL_INFORMATION" | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="javascript: void(0);">{{"SUPPORT" | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="javascript: void(0);">{{"CONTACTS" | translate }}</a>
+          </li>
+        </ul>  -->
+      <!-- <p style="color: white">{{"&COPY;_2019_AOT._ALL_RIGHTS_RESERVED." | translate }}</p> -->
+      <!-- </div>  -->
+      <div class="footer text-center">
+        <p style="color: white">&copy; 2019 AOT. All rights reserved.</p>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>

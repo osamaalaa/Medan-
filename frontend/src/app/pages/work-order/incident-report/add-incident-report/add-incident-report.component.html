@@ -1,0 +1,15 @@
+<nz-card>
+  <div class="card-header">
+    <div class="utils__title">
+      <div><strong>{{"NEW_INCIDENT_FORM" | translate }}</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <app-incident-report-form  (onSubmit)="addNewIncident($event)"
+      (onCancel)="navigateToList()"></app-incident-report-form>
+  </div>
+</nz-card>
+
+
+
+
